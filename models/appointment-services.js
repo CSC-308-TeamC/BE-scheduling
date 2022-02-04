@@ -15,8 +15,10 @@ function getDbConnection() {
 
   async function getAppointments(){
       const appointmentModel = getDbConnection().model('Appointment', AppointmentSchema);
+      let testAppointment = [{type: 'Test Type', status:'Test Status', date: 'Today', time: 'Now', clientId: 'ClientID:123' }];
+      
       let result = await appointmentModel.find();
-      return result;
+      return testAppointment;
   }
 
   exports.getAppointments = getAppointments;
