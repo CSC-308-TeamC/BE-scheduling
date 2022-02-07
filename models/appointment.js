@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const AppointmentSchema = new mongoose.Schema({
     type: {
         type: String,
@@ -9,19 +10,28 @@ const AppointmentSchema = new mongoose.Schema({
     status: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
     },
     date: {
-        type: String,
-        required: true,
+        type: Date,
+        required: true
     },
     time: {
-        type: String,
-        required: true,
+        type: Date,
+        required: true
     },
     clientId: {
+        type: mongoose.Schema.ObjectId,
+        required: true
+    },
+    repeating: {
+        type: Boolean,
+        required: false
+    },
+    notes: {
         type: String,
-        required: true,
-    },}, {collection: 'appointments_collection'});
+        required: false
+    }
+    }, {collection: 'appointments_collection'});
 
     module.exports = AppointmentSchema;
