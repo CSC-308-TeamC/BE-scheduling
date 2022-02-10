@@ -13,19 +13,23 @@ const AppointmentSchema = new mongoose.Schema({
         trim: true
     },
     date: {
-        type: Date,
+        type: String, //Date,
         required: true
     },
     time: {
-        type: Date,
+        type: String, //Date,
         required: true
     },
     clientId: {
-        type: mongoose.Schema.ObjectId,
+        type: String, //mongoose.Schema.ObjectId,
+        required: true
+    },
+    dogId: {
+        type: String, //mongoose.Schema.ObjectId,
         required: true
     },
     repeating: {
-        type: Boolean,
+        type: String, //Boolean,
         required: false
     },
     notes: {

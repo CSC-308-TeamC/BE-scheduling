@@ -12,7 +12,7 @@ const ClientSchema = new mongoose.Schema({
         trim: true,
     },
     dogs: {
-        type: [{type: mongoose.Schema.ObjectId, ref:'dog'}],
+        type: String, //[{type: mongoose.Schema.ObjectId, ref:'dog'}],
         required: true,
     },
     phoneNumber: {
