@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
-const ClientSchema = require('./dog');
-import DogSchema from './dog';
-import dbConnection from './models/dbConnection'
-let dbConnection = dbConnection.getDbConnection();
+const DogSchema = require('./dog');
+const dbConnection = require('./dbConnection');
+let dbC = dbConnection.getDbConnection();
 
   async function getDogs(){
-      const dogModel = getDbConnection().model('Dog', DogSchema);
+      const dogModel = dbC.model('Dog', DogSchema);
       let testDog = [{name: 'Test DogName', breed:'Test Breed', clientId: 'Test clientId'}];
       
       let result = await dogModel.find();

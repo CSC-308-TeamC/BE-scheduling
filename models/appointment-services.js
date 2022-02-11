@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const AppointmentSchema = require('./appointment');
-import dbConnection from './models/dbConnection'
-let dbConnection = dbConnection.getDbConnection();
+const dbConnection = require('./dbConnection');
+let dbC = dbConnection.getDbConnection();
 
   async function getAppointments(){
-      const appointmentModel = getDbConnection().model('Appointment', AppointmentSchema);
+      const appointmentModel = dbC.model('Appointment', AppointmentSchema);
       let testAppointment = [{type: 'Test Type', status:'Test Status', date: 'Today', time: 'Now', clientId: 'Test clientID' }];
       
       let result = await appointmentModel.find();

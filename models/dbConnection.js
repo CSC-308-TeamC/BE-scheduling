@@ -1,5 +1,6 @@
 const res = require('express/lib/response');
 const mongoose = require('mongoose');
+let dbConnection;
 
 function getDbConnection() {
     if (!dbConnection) {

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const ClientSchema = require('./client');
-import dbConnection from './models/dbConnection'
-let dbConnection = dbConnection.getDbConnection();
+const dbConnection = require('./dbConnection');
+let dbC = dbConnection.getDbConnection();
 
   async function getClients(){
-      const clientModel = getDbConnection().model('Client', ClientSchema);
+      const clientModel = dbC.model('Client', ClientSchema);
       let testClient = [{firstName: 'Test firstName', lastName:'Test lastName', dogs: 'Dog 1, Dog 2, Dog 3', phoneNumber: 'XXX-XXX-XXXX'}];
       
       let result = await clientModel.find();
