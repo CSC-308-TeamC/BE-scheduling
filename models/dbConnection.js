@@ -2,7 +2,7 @@ const res = require('express/lib/response');
 const mongoose = require('mongoose');
 let dbConnection;
 
-function getDbConnection() {
+function getDbConnection(){
     if (!dbConnection) {
         dbConnection = mongoose.createConnection("mongodb://localhost:27017/appointments", {
             useNewUrlParser: true,

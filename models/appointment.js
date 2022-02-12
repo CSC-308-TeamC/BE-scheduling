@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 
 const AppointmentSchema = new mongoose.Schema({
+    _id: {
+        type: Number,
+        required: true,
+    },
     type: {
         type: String,
         required: true,
@@ -39,3 +43,5 @@ const AppointmentSchema = new mongoose.Schema({
     }, {collection: 'appointments_collection'});
 
     module.exports = AppointmentSchema;
+
+ 
