@@ -16,7 +16,7 @@ const DogSchema = new mongoose.Schema({
         trim: true,
     },
     clientId: {
-        type: String, //mongoose.Schema.ObjectId,
+        type: Number, //mongoose.Schema.ObjectId,
         required: true,
     }
     }, {collection: 'dogs_collection'});

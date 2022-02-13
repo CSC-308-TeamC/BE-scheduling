@@ -1,12 +1,10 @@
 const DogSchema = require('./dog');
 const dbConnection = require('./dbConnection');
-const res = require('express/lib/response');
 let dbC;
 
 async function getDogs() {
   dbC = dbConnection.getDbConnection();
   const dogModel = dbC.model('Dog', DogSchema);
-  let testDog = [{ name: 'Test DogName', breed: 'Test Breed', dogId: 'Test clientId' }];
   let result = await dogModel.find();
   return result;
 }

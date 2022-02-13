@@ -25,11 +25,11 @@ const AppointmentSchema = new mongoose.Schema({
         required: true
     },
     clientId: {
-        type: String, //mongoose.Schema.ObjectId,
+        type: Number, //mongoose.Schema.ObjectId,
         required: true
     },
     dogId: {
-        type: String, //mongoose.Schema.ObjectId,
+        type: Number, //mongoose.Schema.ObjectId,
         required: true
     },
     repeating: {
