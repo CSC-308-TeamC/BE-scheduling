@@ -5,7 +5,6 @@ let dbC;
 async function getClients() {
   dbC = dbConnection.getDbConnection();
   const clientModel = dbC.model('Client', ClientSchema);
-
   let result = await clientModel.find();
   return result;
 }
@@ -17,7 +16,7 @@ async function addClient(client) {
     const clientToAdd = new clientModel(client);
     const savedclient = await clientToAdd.save()
     return savedclient;
-  } catch (error) {
+  }catch (error) {
     console.log(error);
     return false;
   }
