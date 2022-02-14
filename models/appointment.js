@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 
 const AppointmentSchema = new mongoose.Schema({
+    _id: {
+        type: Number,
+        required: true,
+    },
     type: {
         type: String,
         required: true,
@@ -21,11 +25,11 @@ const AppointmentSchema = new mongoose.Schema({
         required: true
     },
     clientId: {
-        type: String, //mongoose.Schema.ObjectId,
+        type: Number, //mongoose.Schema.ObjectId,
         required: true
     },
     dogId: {
-        type: String, //mongoose.Schema.ObjectId,
+        type: Number, //mongoose.Schema.ObjectId,
         required: true
     },
     repeating: {
@@ -39,3 +43,5 @@ const AppointmentSchema = new mongoose.Schema({
     }, {collection: 'appointments_collection'});
 
     module.exports = AppointmentSchema;
+
+ 
