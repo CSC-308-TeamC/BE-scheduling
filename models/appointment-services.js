@@ -1,13 +1,17 @@
+const res = require('express/lib/response');
 const AppointmentSchema = require('./appointment');
+const clientServices = require('./client-services');
+const dogServices = require('./dog-services');
 const dbConnection = require('./dbConnection');
 let dbC;
 
 async function getAppointments() {
   dbC = dbConnection.getDbConnection();
   const appointmentModel = dbC.model('Appointment', AppointmentSchema);
-
-  let result = await appointmentModel.find();
-  return result;
+  
+  let result = await appointmentModel.find().lean(); 
+  let editedResult = await formatAppointments(result);
+  return editedResult;
 }
 
 async function addAppointment(appointment) {
@@ -34,6 +38,35 @@ async function deleteAppointmentById(id) {
   }
 }
 
+async function formatAppointments(appointments){
+  let appointmentConv = [];
+  if(appointments.length != 0){
+    //Change all Id's to names and date to clearer format, all for frontend.
+    appointmentsConv = await Promise.all(appointments.map(async (appointment) => {
+      let client = await clientServices.getClientById(appointment.clientId);
+      let dog = await dogServices.getDogById(appointment.dogId);
+
+      delete appointment.clientId;
+      delete appointment.dogId;
+      
+      appointment['clientName'] = client.firstName + " " + client.lastName;
+      appointment['dogName'] = dog.name;
+      
+      let date = new Date(appointment.dateTime);
+      appointment['dateTime'] = date.toLocaleDateString('en-US') + " " + date.toLocaleTimeString('en-US');
+      
+      return appointment;      
+    }));
+  }
+  return appointmentsConv;
+}
+
+
+// module.exports = {
+//   getAppointments,
+//   addAppointment,
+//   deleteAppointmentById
+// }
 exports.getAppointments = getAppointments;
 exports.addAppointment = addAppointment;
 exports.deleteAppointmentById = deleteAppointmentById;

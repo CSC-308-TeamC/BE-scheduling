@@ -22,6 +22,18 @@ async function addClient(client) {
   }
 }
 
+async function getClientById(id) {
+  dbC = dbConnection.getDbConnection();
+  const clientModel = dbC.model('Client', ClientSchema);
+  try {
+    let result = await clientModel.findById(id);
+    return result;
+  }catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
 async function deleteClientById(id) {
   dbC = dbConnection.getDbConnection();
   const clientModel = dbC.model('Client', ClientSchema);
@@ -34,5 +46,6 @@ async function deleteClientById(id) {
 }
 
 exports.getClients = getClients;
+exports.getClientById = getClientById;
 exports.addClient = addClient;
 exports.deleteClientById = deleteClientById;

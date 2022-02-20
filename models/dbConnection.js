@@ -1,5 +1,5 @@
-const res = require('express/lib/response');
 const mongoose = require('mongoose');
+const dotenv = require("dotenv");
 let dbConnection;
 
 function getDbConnection(){

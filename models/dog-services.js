@@ -22,6 +22,18 @@ async function addDog(dog) {
   }
 }
 
+async function getDogById(id) {
+  dbC = dbConnection.getDbConnection();
+  const dogModel = dbC.model('Dog', DogSchema);
+  try {
+    let result = await dogModel.findById(id);
+    return result;
+  }catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
 async function deleteDogById(id) {
   dbC = dbConnection.getDbConnection();
   const dogModel = dbC.model('Dog', DogSchema);
@@ -35,4 +47,5 @@ async function deleteDogById(id) {
 
 exports.getDogs = getDogs;
 exports.addDog = addDog;
+exports.getDogById = getDogById;
 exports.deleteDogById = deleteDogById;
