@@ -1,12 +1,13 @@
 const DogSchema = require('./dog');
 const dbConnection = require('./dbConnection');
+const clientServices = require('./client-services');
 let dbC;
 
 async function getDogs() {
   dbC = dbConnection.getDbConnection();
   const dogModel = dbC.model('Dog', DogSchema);
-  let result = await dogModel.find();
-  return result;
+  let formattedResult = await formatDogs(await dogModel.find().lean());
+  return formattedResult;
 }
 
 async function addDog(dog) {
@@ -43,6 +44,21 @@ async function deleteDogById(id) {
     console.log(error);
     return false;
   }
+}
+
+
+async function formatDogs(dogs){
+  let dogsConv = [];
+  if(dogs.length != 0){
+    //Change Client Id to name
+    dogsConv = await Promise.all(dogs.map(async (dog) => {
+      let client = await clientServices.getClientById(dog.clientId);
+      delete dog.clientId;
+      dog['clientName'] = client.firstName + " " + client.lastName;
+      return dog;      
+    }));
+  }
+  return dogsConv;
 }
 
 exports.getDogs = getDogs;

@@ -5,8 +5,8 @@ let dbC;
 async function getClients() {
   dbC = dbConnection.getDbConnection();
   const clientModel = dbC.model('Client', ClientSchema);
-  let result = await clientModel.find();
-  return result;
+  let formattedResult = await formatClients(await clientModel.find().lean());
+  return formattedResult;
 }
 
 async function addClient(client) {
@@ -44,6 +44,22 @@ async function deleteClientById(id) {
     return false;
   }
 }
+
+async function formatClients(clients){
+  let clientsConv = [];
+  if(clients.length != 0){
+    //Change Client fName and lName to full name
+    clientsConv = await Promise.all(clients.map(async (client) => {
+      client['fullName'] = client.firstName + " " + client.lastName;
+      delete client.firstName;
+      delete client.lastName
+      return client;      
+    }));
+  }
+  return clientsConv;
+}
+
+
 
 exports.getClients = getClients;
 exports.getClientById = getClientById;

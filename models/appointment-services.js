@@ -7,11 +7,9 @@ let dbC;
 
 async function getAppointments() {
   dbC = dbConnection.getDbConnection();
-  const appointmentModel = dbC.model('Appointment', AppointmentSchema);
-  
-  let result = await appointmentModel.find().lean(); 
-  let editedResult = await formatAppointments(result);
-  return editedResult;
+  const appointmentModel = dbC.model('Appointment', AppointmentSchema); 
+  let formattedResult = await formatAppointments(await appointmentModel.find().lean());
+  return formattedResult;
 }
 
 async function addAppointment(appointment) {
@@ -39,7 +37,7 @@ async function deleteAppointmentById(id) {
 }
 
 async function formatAppointments(appointments){
-  let appointmentConv = [];
+  let appointmentsConv = [];
   if(appointments.length != 0){
     //Change all Id's to names and date to clearer format, all for frontend.
     appointmentsConv = await Promise.all(appointments.map(async (appointment) => {
