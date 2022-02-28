@@ -5,7 +5,7 @@ let dbC;
 async function getClients() {
   dbC = dbConnection.getDbConnection();
   const clientModel = dbC.model('Client', ClientSchema);
-  let formattedResult = await formatClients(await clientModel.find().lean());
+  let formattedResult = await formatClientsArray(await clientModel.find().lean());
   return formattedResult;
 }
 
@@ -14,8 +14,12 @@ async function addClient(client) {
   const clientModel = dbC.model('Client', ClientSchema);
   try {
     const clientToAdd = new clientModel(client);
-    const savedclient = await clientToAdd.save()
-    return savedclient;
+    var savedClient = await clientToAdd.save();
+
+    let formattedClient = await formatClient(client);
+    formattedClient._id = savedClient._id;
+
+    return formattedClient;
   }catch (error) {
     console.log(error);
     return false;
@@ -45,18 +49,24 @@ async function deleteClientById(id) {
   }
 }
 
-async function formatClients(clients){
+async function formatClientsArray(clients){
   let clientsConv = [];
   if(clients.length != 0){
     //Change Client fName and lName to full name
     clientsConv = await Promise.all(clients.map(async (client) => {
-      client['fullName'] = client.firstName + " " + client.lastName;
-      delete client.firstName;
-      delete client.lastName
-      return client;      
+      return formatClient(client);      
     }));
   }
   return clientsConv;
+}
+
+async function formatClient(client){
+  if(client){
+    client['fullName'] = client.firstName + " " + client.lastName;
+    delete client.firstName;
+    delete client.lastName
+    return client;  
+  }
 }
 
 

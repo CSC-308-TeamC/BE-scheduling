@@ -15,8 +15,12 @@ async function addDog(dog) {
   const dogModel = dbC.model('Dog', DogSchema);
   try {
     const dogToAdd = new dogModel(dog);
-    const saveddog = await dogToAdd.save()
-    return saveddog;
+    var savedDog = await dogToAdd.save();
+
+    let formattedDog = await formatDog(dog);
+    formattedDog._id = savedDog._id; 
+
+    return formattedDog;
   }catch (error) {
     console.log(error);
     return false;
@@ -52,13 +56,19 @@ async function formatDogs(dogs){
   if(dogs.length != 0){
     //Change Client Id to name
     dogsConv = await Promise.all(dogs.map(async (dog) => {
-      let client = await clientServices.getClientById(dog.clientId);
-      delete dog.clientId;
-      dog['clientName'] = client.firstName + " " + client.lastName;
-      return dog;      
+      return formatDog(dog);
     }));
   }
   return dogsConv;
+}
+
+async function formatDog(dog){
+  if(dog){
+    let client = await clientServices.getClientById(dog.clientId);
+    delete dog.clientId;
+    dog['clientName'] = client.firstName + " " + client.lastName;
+    return dog;
+  }
 }
 
 exports.getDogs = getDogs;

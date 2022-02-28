@@ -3,13 +3,15 @@ const AppointmentSchema = require('./appointment');
 const clientServices = require('./client-services');
 const dogServices = require('./dog-services');
 const dbConnection = require('./dbConnection');
+const { format } = require('express/lib/response');
 let dbC;
 
 async function getAppointments() {
   dbC = dbConnection.getDbConnection();
   const appointmentModel = dbC.model('Appointment', AppointmentSchema); 
-  let formattedResult = await formatAppointments(await appointmentModel.find().lean());
-  return formattedResult;
+  //let formattedResult = await formatAppointmentsArray(await appointmentModel.find().lean());
+  let defaultRestult = await appointmentModel.find();
+  return defaultRestult;
 }
 
 async function addAppointment(appointment) {
@@ -17,8 +19,12 @@ async function addAppointment(appointment) {
   const appointmentModel = dbC.model('Appointment', AppointmentSchema);
   try {
     const appointmentToAdd = new appointmentModel(appointment);
-    const savedAppointment = await appointmentToAdd.save()
-    return savedAppointment;
+    var savedAppointment = await appointmentToAdd.save();
+
+    let formattedAppointment = await formatAppointment(appointment);
+    formattedAppointment._id = savedAppointment._id;
+
+    return formattedAppointment;
   } catch (error) {
     console.log(error);
     return false;
@@ -36,27 +42,33 @@ async function deleteAppointmentById(id) {
   }
 }
 
-async function formatAppointments(appointments){
+async function formatAppointmentsArray(appointments){
   let appointmentsConv = [];
   if(appointments.length != 0){
     //Change all Id's to names and date to clearer format, all for frontend.
     appointmentsConv = await Promise.all(appointments.map(async (appointment) => {
-      let client = await clientServices.getClientById(appointment.clientId);
-      let dog = await dogServices.getDogById(appointment.dogId);
-
-      delete appointment.clientId;
-      delete appointment.dogId;
-      
-      appointment['clientName'] = client.firstName + " " + client.lastName;
-      appointment['dogName'] = dog.name;
-      
-      let date = new Date(appointment.dateTime);
-      appointment['dateTime'] = date.toLocaleDateString('en-US') + " " + date.toLocaleTimeString('en-US');
-      
-      return appointment;      
+      return await formatAppointment(appointment);      
     }));
   }
   return appointmentsConv;
+}
+
+async function formatAppointment(appointment){
+  if(appointment){
+    let client = await clientServices.getClientById(appointment.clientId);
+    let dog = await dogServices.getDogById(appointment.dogId);
+
+    delete appointment.clientId;
+    delete appointment.dogId;
+    
+    appointment['clientName'] = client.firstName + " " + client.lastName;
+    appointment['dogName'] = dog.name;
+    
+    let date = new Date(appointment.dateTime);
+    appointment['dateTime'] = date.toLocaleDateString('en-US') + " " + date.toLocaleTimeString('en-US');
+    
+    return appointment; 
+  } 
 }
 
 
