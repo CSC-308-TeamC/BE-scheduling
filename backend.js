@@ -8,6 +8,7 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
+//Get requests-------------------------------------------------------------------------------------------------------
 app.get('/',  (req, res) => {
     res.redirect('/dashboard');
 });
@@ -23,9 +24,20 @@ app.get('/appointments', async(req, res) => {
     res.send({appointmentData: result});
 });
 
+
 app.get('/clients', async(req, res) => {
     const result = await clientServices.getClients();
     res.send({clientData: result});
+});
+
+app.get('/clients/:id', async (req, res) =>{
+    const id = req.params.id;
+    const result = await clientServices.getClientById(id);
+    if(result){
+        res.send(result).end();
+    }else{
+        res.status(404).send('Resource not found');
+    } 
 });
 
 app.get('/dogs', async(req, res) => {
@@ -33,6 +45,8 @@ app.get('/dogs', async(req, res) => {
     res.send({dogData: result});
 });
 
+
+//Post Requests-------------------------------------------------------------------------------------------------------
 app.post('/appointments', async (req, res) => {
     const newAppointment = req.body;
     const savedAppointment = await appointmentServices.addAppointment(newAppointment);
@@ -60,6 +74,8 @@ app.post('/dogs', async (req, res) => {
         res.status(500).end();
 });
 
+
+//Delete requests-------------------------------------------------------------------------------------------------------
 app.delete('/appointments/:id', async (req, res) =>{
     const id = req.params.id;
     const result = await appointmentServices.deleteAppointmentById(id);

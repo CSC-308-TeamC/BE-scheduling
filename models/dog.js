@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const DogSchema = new mongoose.Schema({
-    _id: {
-        type: Number,
-        required: true,
-    },
     name: {
         type: String,
         required: true,
@@ -16,7 +12,7 @@ const DogSchema = new mongoose.Schema({
         trim: true,
     },
     clientId: {
-        type: Number, //mongoose.Schema.ObjectId,
+        type: mongoose.Schema.ObjectId,
         required: true,
     }
     }, {collection: 'dogs_collection'});

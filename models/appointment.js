@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 
 
 const AppointmentSchema = new mongoose.Schema({
-    _id: {
-        type: Number,
-        required: true,
-    },
     type: {
         type: String,
         required: true,
@@ -16,24 +12,20 @@ const AppointmentSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    date: {
-        type: String, //Date,
-        required: true
-    },
-    time: {
-        type: String, //Date,
+    dateTime: {
+        type: Date,
         required: true
     },
     clientId: {
-        type: Number, //mongoose.Schema.ObjectId,
+        type: mongoose.Schema.ObjectId,
         required: true
     },
     dogId: {
-        type: Number, //mongoose.Schema.ObjectId,
+        type: mongoose.Schema.ObjectId,
         required: true
     },
     repeating: {
-        type: String, //Boolean,
+        type: Boolean,
         required: false
     },
     notes: {
