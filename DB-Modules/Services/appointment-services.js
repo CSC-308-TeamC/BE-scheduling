@@ -56,7 +56,6 @@ async function addAppointment(appointment) {
 async function updateAppointment(appointment){
   dbC = dbConnection.getDbConnection();
   const appointmentModel = dbC.model('Appointment', AppointmentSchema);
-  console.log(appointment);
   try{
     let updatedAppointment = await appointmentModel.findOneAndUpdate({_id: appointment._id}, 
       {

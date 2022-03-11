@@ -43,9 +43,8 @@ async function addDog(dog) {
 async function updateDog(dog){
   dbC = dbConnection.getDbConnection();
   const dogModel = dbC.model('Dog', DogSchema);
-  console.log(dog);
   try{
-    let updatedDog = await clientModel.findOneAndUpdate({_id: dog._id}, 
+    let updatedDog = await dogModel.findOneAndUpdate({_id: dog._id}, 
       {
         "name": dog.name,
         "breed": dog.breed,

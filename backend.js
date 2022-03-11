@@ -42,8 +42,6 @@ app.get('/clients', async(req, res) => {
 });
 
 app.get('/clients/:id', async (req, res) =>{
-    const userModel = getDbConnection().model("User", UserSchema);       
-
     const id = req.params.id;
     const result = await clientServices.getClientById(id);
     if(result)
