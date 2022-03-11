@@ -1,5 +1,5 @@
-const DogSchema = require('./dog');
-const dbConnection = require('./dbConnection');
+const DogSchema = require('../Models/dog');
+const dbConnection = require('../dbConnection');
 const clientServices = require('./client-services');
 let dbC;
 
@@ -10,22 +10,6 @@ async function getDogs() {
   return formattedResult;
 }
 
-async function addDog(dog) {
-  dbC = dbConnection.getDbConnection();
-  const dogModel = dbC.model('Dog', DogSchema);
-  try {
-    const dogToAdd = new dogModel(dog);
-    var savedDog = await dogToAdd.save();
-
-    let formattedDog = await formatDog(dog);
-    formattedDog._id = savedDog._id; 
-
-    return formattedDog;
-  }catch (error) {
-    console.log(error);
-    return false;
-  }
-}
 
 async function getDogById(id) {
   dbC = dbConnection.getDbConnection();
@@ -34,6 +18,43 @@ async function getDogById(id) {
     let result = await dogModel.findById(id);
     return result;
   }catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+async function addDog(dog) {
+  dbC = dbConnection.getDbConnection();
+  const dogModel = dbC.model('Dog', DogSchema);
+  try {
+    const dogToAdd = new dogModel(dog);
+    var savedDog = await dogToAdd.save();
+
+    await formatDog(dog);
+    dog._id = savedDog._id; 
+
+    return dog;
+  }catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+async function updateDog(dog){
+  dbC = dbConnection.getDbConnection();
+  const dogModel = dbC.model('Dog', DogSchema);
+  console.log(dog);
+  try{
+    let updatedDog = await clientModel.findOneAndUpdate({_id: dog._id}, 
+      {
+        "name": dog.name,
+        "breed": dog.breed,
+        "clientId": dog.clientId
+      }, 
+      {returnNewDocument: true}).lean();
+    await formatDog(updatedDog);
+    return updatedDog;
+  }catch(error){
     console.log(error);
     return false;
   }
@@ -54,7 +75,6 @@ async function deleteDogById(id) {
 async function formatDogs(dogs){
   let dogsConv = [];
   if(dogs.length != 0){
-    //Change Client Id to name
     dogsConv = await Promise.all(dogs.map(async (dog) => {
       return formatDog(dog);
     }));
@@ -71,7 +91,15 @@ async function formatDog(dog){
   }
 }
 
+// module.exports = {
+//   getDogs,
+//   getDogById,
+//   addDog,
+//   updateDog,
+//   deleteDogById
+// }
 exports.getDogs = getDogs;
-exports.addDog = addDog;
 exports.getDogById = getDogById;
+exports.addDog = addDog;
+exports.updateDog = updateDog;
 exports.deleteDogById = deleteDogById;
