@@ -1,13 +1,26 @@
 const mongoose = require('mongoose');
 const dotenv = require("dotenv");
+dotenv.config();
+require('./initDB')();
+
 let dbConnection;
 
-function getDbConnection(){
+// function getDbConnection(){
+//     if (!dbConnection) {
+//         dbConnection = mongoose.createConnection("mongodb://localhost:27017/appointments", {
+//             useNewUrlParser: true,
+//             useUnifiedTopology: true,
+//         });
+//     }
+//     return dbConnection;
+//   }
+
+  function getDbConnection() {
     if (!dbConnection) {
-        dbConnection = mongoose.createConnection("mongodb://localhost:27017/appointments", {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+      dbConnection = mongoose.createConnection(process.env.DB_URI, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+      });
     }
     return dbConnection;
   }
