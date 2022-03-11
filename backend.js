@@ -8,6 +8,7 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
+
 //Get requests-------------------------------------------------------------------------------------------------------
 app.get('/',  (req, res) => {
     res.redirect('/dashboard');
@@ -31,6 +32,8 @@ app.get('/clients', async(req, res) => {
 });
 
 app.get('/clients/:id', async (req, res) =>{
+    const userModel = getDbConnection().model("User", UserSchema);       
+
     const id = req.params.id;
     const result = await clientServices.getClientById(id);
     if(result){
