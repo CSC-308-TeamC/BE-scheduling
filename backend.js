@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const appointmentServices = require('./models/appointment-services');
-const clientServices = require('./models/client-services');
-const dogServices = require('./models/dog-services');
+const appointmentServices = require('./DB-Modules/Services/appointment-services');
+const clientServices = require('./DB-Modules/Services/client-services');
+const dogServices = require('./DB-Modules/Services/dog-services');
 const app = express();
 const port = 5000;
 app.use(cors());
@@ -15,13 +15,23 @@ app.get('/',  (req, res) => {
 
 app.get('/dashboard', async (req, res) => {
     //Should become get AppointmentsFilterByDate
-    const result = await appointmentServices.getAppointments();
+    const result = await appointmentServices.getTodaysAppointments();
     res.send({appointmentData: result});
 });
 
 app.get('/appointments', async(req, res) => {
     const result = await appointmentServices.getAppointments();
     res.send({appointmentData: result});
+});
+
+app.get('/appointments/:id', async(req, res) => {
+    const id = req.params.id;
+    const result = await appointmentServices.getAppointmentById(id);
+    if(result){
+        res.send({appointmentData: result});
+    }else{
+        res.status(404).send('Resource not found');
+    } 
 });
 
 
@@ -33,11 +43,10 @@ app.get('/clients', async(req, res) => {
 app.get('/clients/:id', async (req, res) =>{
     const id = req.params.id;
     const result = await clientServices.getClientById(id);
-    if(result){
-        res.send(result).end();
-    }else{
+    if(result)
+        res.send({clientData: result}).end();
+    else
         res.status(404).send('Resource not found');
-    } 
 });
 
 app.get('/dogs', async(req, res) => {
@@ -45,13 +54,23 @@ app.get('/dogs', async(req, res) => {
     res.send({dogData: result});
 });
 
+app.get('/dogs/:id', async(req, res) => {
+    const id = req.params.id;
+    const result = await dogServices.getDogById(id);
+    if(result)
+        res.send({dogData: result}).end();
+    else
+        res.status(404).send('Resource not found');
+});
+
+
 
 //Post Requests-------------------------------------------------------------------------------------------------------
 app.post('/appointments', async (req, res) => {
     const newAppointment = req.body;
     const savedAppointment = await appointmentServices.addAppointment(newAppointment);
     if(savedAppointment)
-        res.status(201).send(savedAppointment);
+        res.status(201).send({appointmentData: savedAppointment});
     else
         res.status(500).end();
 });
@@ -60,20 +79,47 @@ app.post('/clients', async (req, res) => {
     const newClient = req.body;
     const savedClient = await clientServices.addClient(newClient);
     if(savedClient)
-        res.status(201).send(savedClient);
+        res.status(201).send({clientData: savedClient});
     else
         res.status(500).end();
 });
 
 app.post('/dogs', async (req, res) => {
     const newDog = req.body;
-    const savedDog = await dogServices.addDog(newDog);
+    const savedDog = await dogServices.addDog({dogData: savedDog});
     if(savedDog)
         res.status(201).send(savedDog);
     else
         res.status(500).end();
 });
 
+//Patch requests-------------------------------------------------------------------------------------------------------
+app.patch('/appointments/:id', async (req, res) => {
+    const appointmentToUpdate = req.body;
+    const updatedAppointment = await appointmentServices.updateAppointment(appointmentToUpdate);
+    if(updatedAppointment)
+        res.status(200).send({appointmentData: updatedAppointment});
+    else
+        res.status(404).end();
+})
+
+app.patch('/clients/:id', async (req, res) => {
+    const clientToUpdate = req.body;
+    const updatedClient = await clientServices.updateClient(clientToUpdate);
+    if(updatedClient)
+        res.status(200).send({clientData: clientToUpdate});
+    else
+        res.status(404).end();
+})
+
+app.patch('/dogs/:id', async (req, res) => {
+    const dogToUpdate = req.body;
+    const updatedDog = await dogServices.updateDog(dogToUpdate);
+    if(updatedDog)
+        res.status(200).send({dogData: updatedDog});
+    else
+        res.status(404).end();
+})
 
 //Delete requests-------------------------------------------------------------------------------------------------------
 app.delete('/appointments/:id', async (req, res) =>{
