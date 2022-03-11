@@ -24,12 +24,12 @@ const AppointmentSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         required: true
     },
-    repeating: {
-        type: Boolean,
-        required: false
-    },
     notes: {
         type: String,
+        required: false
+    },
+    repeating: {
+        type: Boolean,
         required: false
     }
     }, {collection: 'appointments_collection'});
