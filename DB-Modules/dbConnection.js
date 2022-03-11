@@ -17,7 +17,7 @@ let dbConnection;
 
   function getDbConnection() {
     if (!dbConnection) {
-      dbConnection = mongoose.createConnection(process.env.DB_URI, {
+      dbConnection = mongoose.createConnection(process.env.MONGODB_URI, {
           useNewUrlParser: true,
           useUnifiedTopology: true,
       });

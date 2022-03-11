@@ -89,9 +89,9 @@ app.post('/clients', async (req, res) => {
 
 app.post('/dogs', async (req, res) => {
     const newDog = req.body;
-    const savedDog = await dogServices.addDog({dogData: savedDog});
+    const savedDog = await dogServices.addDog(newDog);
     if(savedDog)
-        res.status(201).send(savedDog);
+        res.status(201).send({dogData: savedDog});
     else
         res.status(500).end();
 });
