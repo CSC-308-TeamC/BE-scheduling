@@ -2,27 +2,33 @@ const ClientSchema = require('../Models/client');
 const dbConnection = require('../dbConnection');
 let dbC;
 
+function setConnection(newConnection){
+  dbC = newConnection;
+  return dbC;
+}
+
 async function getClients() {
-  dbC = dbConnection.getDbConnection();
+  dbC = dbConnection.getDbConnection(dbC);
   const clientModel = dbC.model('Client', ClientSchema);
-  let formattedResult = await formatClientsArray(await clientModel.find().lean());
-  return formattedResult;
+  let clientResults = await formatClientsArray(await clientModel.find().lean());
+  return clientResults;
 }
 
 async function getClientById(id) {
-  dbC = dbConnection.getDbConnection();
+  dbC = dbConnection.getDbConnection(dbC);
   const clientModel = dbC.model('Client', ClientSchema);
   try {
-    let result = await clientModel.findById(id);
+    let result = await clientModel.findById(id).lean();
+    await formatClient(result);
     return result;
-  }catch (error) {
+  }catch(error) {
     console.log(error);
     return false;
   }
 }
 
 async function addClient(client) {
-  dbC = dbConnection.getDbConnection();
+  dbC = dbConnection.getDbConnection(dbC);
   const clientModel = dbC.model('Client', ClientSchema);
   try {
     const clientToAdd = new clientModel(client);
@@ -39,7 +45,7 @@ async function addClient(client) {
 }
 
 async function updateClient(client){
-  dbC = dbConnection.getDbConnection();
+  dbC = dbConnection.getDbConnection(dbC);
   const clientModel = dbC.model('Client', ClientSchema);
   try{
     let updatedClient = await clientModel.findOneAndUpdate({"_id": client._id}, 
@@ -49,7 +55,7 @@ async function updateClient(client){
         "dogs": client.dogs,
         "phoneNumber": client.phoneNumber
       }, 
-    {returnNewDocument: true}).lean();
+    {returnOriginal: false}).lean();
     await formatClient(updatedClient);
     return updatedClient;
   }catch(error){
@@ -60,11 +66,11 @@ async function updateClient(client){
 
 
 async function deleteClientById(id) {
-  dbC = dbConnection.getDbConnection();
+  dbC = dbConnection.getDbConnection(dbC);
   const clientModel = dbC.model('Client', ClientSchema);
   try {
     return await clientModel.findByIdAndRemove(id);
-  } catch (error) {
+  }catch(error) {
     console.log(error);
     return false;
   }
@@ -96,6 +102,7 @@ async function formatClient(client){
 //   updateClient,
 //   deleteClientById
 // }
+exports.setConnection = setConnection;
 exports.getClients = getClients;
 exports.getClientById = getClientById;
 exports.addClient = addClient;

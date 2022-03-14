@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const dotenv = require("dotenv");
 dotenv.config();
-require('./initDB')();
 
 let dbConnection;
 
@@ -15,7 +14,8 @@ let dbConnection;
 //     return dbConnection;
 //   }
 
-  function getDbConnection() {
+  function getDbConnection(dbC) {
+    dbConnection = dbC;
     if (!dbConnection) {
       dbConnection = mongoose.createConnection(process.env.MONGODB_URI, {
           useNewUrlParser: true,
