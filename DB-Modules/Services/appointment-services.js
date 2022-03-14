@@ -7,20 +7,29 @@ const { startOfToday } = require('date-fns');
 const { startOfTomorrow } = require('date-fns');
 let dbC;
 
+function setConnection(newConnection){
+  dbC = newConnection;
+  return dbC;
+}
+
 async function getAppointments() {
-  dbC = dbConnection.getDbConnection();
+  dbC = dbConnection.getDbConnection(dbC);
   const appointmentModel = dbC.model('Appointment', AppointmentSchema); 
-  let appointmentsResult = (await appointmentModel.find().lean());
-  await formatAppointmentsArray(appointmentsResult);
-  return appointmentsResult;
+  try{
+    let appointmentsResults = await formatAppointmentsArray(await appointmentModel.find().lean());
+    return appointmentsResults;
+  }catch (error){
+    console.log(error);
+    return false;
+  }
 }
 
 async function getAppointmentById(id) {
-  dbC = dbConnection.getDbConnection();
+  dbC = dbConnection.getDbConnection(dbC);
   const appointmentModel = dbC.model('Appointment', AppointmentSchema);
   try {
     let result = await appointmentModel.findById(id).lean();
-    //await formatAppointment(result);
+    await formatAppointment(result);
     return result;
   }catch (error) {
     console.log(error);
@@ -29,7 +38,7 @@ async function getAppointmentById(id) {
 }
 
 async function getTodaysAppointments(){
-  dbC = dbConnection.getDbConnection();
+  dbC = dbConnection.getDbConnection(dbC);
   const appointmentModel = dbC.model('Appointment', AppointmentSchema);
   let appointmentsResult = await appointmentModel.find({dateTime: {$gte: startOfToday(), $lte: startOfTomorrow()}}).lean(); 
   await formatAppointmentsArray(appointmentsResult);
@@ -37,7 +46,7 @@ async function getTodaysAppointments(){
 }
 
 async function addAppointment(appointment) {
-  dbC = dbConnection.getDbConnection();
+  dbC = dbConnection.getDbConnection(dbC);
   const appointmentModel = dbC.model('Appointment', AppointmentSchema);
   try {
     const appointmentToAdd = new appointmentModel(appointment);
@@ -54,10 +63,10 @@ async function addAppointment(appointment) {
 }
 
 async function updateAppointment(appointment){
-  dbC = dbConnection.getDbConnection();
+  dbC = dbConnection.getDbConnection(dbC);
   const appointmentModel = dbC.model('Appointment', AppointmentSchema);
   try{
-    let updatedAppointment = await appointmentModel.findOneAndUpdate({_id: appointment._id}, 
+    let updatedAppointment = await appointmentModel.findOneAndUpdate({"_id": appointment._id}, 
       {
         "type": appointment.type,
         "status": appointment.status,
@@ -67,10 +76,9 @@ async function updateAppointment(appointment){
         "notes": appointment.notes,
         "repeating": appointment.repeating
       }, 
-      {returnNewDocument: true}).lean();
+      {returnOriginal: false}).lean();
     await formatAppointment(updatedAppointment);
     return updatedAppointment;
-
   }catch(error){
     console.log(error);
     return false;
@@ -78,7 +86,7 @@ async function updateAppointment(appointment){
 }
 
 async function deleteAppointmentById(id) {
-  dbC = dbConnection.getDbConnection();
+  dbC = dbConnection.getDbConnection(dbC);
   const appointmentModel = dbC.model('Appointment', AppointmentSchema);
   try {
     return await appointmentModel.findByIdAndRemove(id);
@@ -105,15 +113,15 @@ async function formatAppointment(appointment){
 
     delete appointment.clientId;
     delete appointment.dogId;
-    
-    appointment['clientName'] = client.firstName + " " + client.lastName;
+
+    appointment['clientName'] = client.fullName;
     appointment['dogName'] = dog.name;
-    
+
     let date = new Date(appointment.dateTime);
     appointment['dateTime'] = date.toLocaleDateString('en-US') + " " + date.toLocaleTimeString('en-US');
-    
-    return appointment; 
-  } 
+
+    return appointment;
+  }
 }
 
 
@@ -125,6 +133,7 @@ async function formatAppointment(appointment){
 //   updateAppointment,
 //   deleteAppointmentById
 // }
+exports.setConnection = setConnection;
 exports.getAppointments = getAppointments;
 exports.getAppointmentById = getAppointmentById;
 exports.getTodaysAppointments = getTodaysAppointments;
