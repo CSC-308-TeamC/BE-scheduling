@@ -25,15 +25,19 @@ app.get('/appointments', async(req, res) => {
     res.send({appointmentData: result});
 });
 
-app.get('/appointments/:id', async(req, res) => {
+app.get('/appointments/:id/:format', async(req, res) => {
     const id = req.params.id;
-    const result = await appointmentServices.getAppointmentById(id);
+    const format = req.params.format;
+    var result;
+    result = await appointmentServices.getAppointmentById(id, format);
+    
     if(result){
         res.send({appointmentData: result});
     }else{
         res.status(404).send('Resource not found');
     } 
 });
+
 
 
 app.get('/clients', async(req, res) => {
@@ -95,7 +99,7 @@ app.post('/dogs', async (req, res) => {
 });
 
 //Patch requests-------------------------------------------------------------------------------------------------------
-app.patch('/appointments/:id', async (req, res) => {
+app.patch('/appointments', async (req, res) => {
     const appointmentToUpdate = req.body;
     const updatedAppointment = await appointmentServices.updateAppointment(appointmentToUpdate);
     if(updatedAppointment)
@@ -104,7 +108,7 @@ app.patch('/appointments/:id', async (req, res) => {
         res.status(404).end();
 })
 
-app.patch('/clients/:id', async (req, res) => {
+app.patch('/clients', async (req, res) => {
     const clientToUpdate = req.body;
     const updatedClient = await clientServices.updateClient(clientToUpdate);
     if(updatedClient)
@@ -113,7 +117,7 @@ app.patch('/clients/:id', async (req, res) => {
         res.status(404).end();
 })
 
-app.patch('/dogs/:id', async (req, res) => {
+app.patch('/dogs', async (req, res) => {
     const dogToUpdate = req.body;
     const updatedDog = await dogServices.updateDog(dogToUpdate);
     if(updatedDog)
