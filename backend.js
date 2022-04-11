@@ -4,7 +4,7 @@ const appointmentServices = require('./DB-Modules/Services/appointment-services'
 const clientServices = require('./DB-Modules/Services/client-services');
 const dogServices = require('./DB-Modules/Services/dog-services');
 const app = express();
-const port = 5000;
+const port = 5001;
 app.use(cors());
 app.use(express.json());
 

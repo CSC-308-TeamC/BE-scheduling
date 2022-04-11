@@ -45,6 +45,10 @@ async function getTodaysAppointments(){
   return appointmentsResult;
 }
 
+async function ensureUniqueAppointment(appointment){
+  
+}
+
 async function addAppointment(appointment) {
   dbC = dbConnection.getDbConnection(dbC);
   const appointmentModel = dbC.model('Appointment', AppointmentSchema);
