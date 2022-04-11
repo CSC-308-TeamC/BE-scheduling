@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>75/75</span>
+                <span class='fraction'>78/78</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>9/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>75/75</span>
+                <span class='fraction'>78/78</span>
             </div>
         
             
@@ -204,8 +204,7 @@
 <a name='L139'></a><a href='#L139'>139</a>
 <a name='L140'></a><a href='#L140'>140</a>
 <a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L142'></a><a href='#L142'>142</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -232,12 +231,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -325,18 +328,13 @@
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -373,13 +371,17 @@ async function getAppointments() {
   }
 }
 &nbsp;
-async function getAppointmentById(id) {
+async function getAppointmentById(id, format = true) {
   dbC = dbConnection.getDbConnection(dbC);
   const appointmentModel = dbC.model('Appointment', AppointmentSchema);
   try {
-    let result = await appointmentModel.findById(id).lean();
-    await formatAppointment(result);
-    return result;
+    let appointmentResult;
+    if(JSON.parse(format))
+       appointmentResult = await formatAppointment(await appointmentModel.findById(id).lean());
+    else
+      appointmentResult = await appointmentModel.findById(id);
+    
+    return appointmentResult;
   }catch (error) {
     console.log(error);
     return false;
@@ -390,7 +392,7 @@ async function getTodaysAppointments(){
   dbC = dbConnection.getDbConnection(dbC);
   const appointmentModel = dbC.model('Appointment', AppointmentSchema);
   let appointmentsResult = await appointmentModel.find({dateTime: {$gte: startOfToday(), $lte: startOfTomorrow()}}).lean(); 
-  await formatAppointmentsArray(appointmentsResult);
+  await formatAppointmentsArray(appointmentsResult, true);
   return appointmentsResult;
 }
 &nbsp;
@@ -445,17 +447,17 @@ async function deleteAppointmentById(id) {
   }
 }
 &nbsp;
-async function formatAppointmentsArray(appointments){
+async function formatAppointmentsArray(appointments, forToday=false){
   let appointmentsConv = [];
   if(appointments.length != 0){
     appointmentsConv = await Promise.all(appointments.map(async (appointment) =&gt; {
-      return await formatAppointment(appointment);      
+      return await formatAppointment(appointment, forToday);      
     }));
   }
   return appointmentsConv;
 }
 &nbsp;
-async function formatAppointment(appointment){
+async function formatAppointment(appointment, forToday){
   if(appointment){
     let client = await clientServices.getClientById(appointment.clientId);
     let dog = await dogServices.getDogById(appointment.dogId);
@@ -467,21 +469,16 @@ async function formatAppointment(appointment){
     appointment['dogName'] = dog.name;
 &nbsp;
     let date = new Date(appointment.dateTime);
-    appointment['dateTime'] = date.toLocaleDateString('en-US') + " " + date.toLocaleTimeString('en-US');
+&nbsp;
+    if(forToday)
+      appointment['dateTime'] = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    else
+      appointment['dateTime'] = date.toLocaleDateString('en-US') + " " + date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 &nbsp;
     return appointment;
   }
 }
 &nbsp;
-&nbsp;
-// module.exports = {
-//   getAppointments,
-//   getAppointmentById,
-//   getTodaysAppointments,
-//   addAppointment,
-//   updateAppointment,
-//   deleteAppointmentById
-// }
 exports.setConnection = setConnection;
 exports.getAppointments = getAppointments;
 exports.getAppointmentById = getAppointmentById;
@@ -496,7 +493,7 @@ exports.deleteAppointmentById = deleteAppointmentById;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sun Mar 13 2022 17:32:28 GMT-0700 (Pacific Daylight Time)
+                at Fri Apr 08 2022 10:36:22 GMT-0700 (Pacific Daylight Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>

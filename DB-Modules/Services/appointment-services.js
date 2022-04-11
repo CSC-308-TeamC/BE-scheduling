@@ -24,13 +24,17 @@ async function getAppointments() {
   }
 }
 
-async function getAppointmentById(id) {
+async function getAppointmentById(id, format = true) {
   dbC = dbConnection.getDbConnection(dbC);
   const appointmentModel = dbC.model('Appointment', AppointmentSchema);
   try {
-    let result = await appointmentModel.findById(id).lean();
-    await formatAppointment(result);
-    return result;
+    let appointmentResult;
+    if(JSON.parse(format))
+       appointmentResult = await formatAppointment(await appointmentModel.findById(id).lean());
+    else
+      appointmentResult = await appointmentModel.findById(id);
+    
+    return appointmentResult;
   }catch (error) {
     console.log(error);
     return false;
@@ -41,7 +45,7 @@ async function getTodaysAppointments(){
   dbC = dbConnection.getDbConnection(dbC);
   const appointmentModel = dbC.model('Appointment', AppointmentSchema);
   let appointmentsResult = await appointmentModel.find({dateTime: {$gte: startOfToday(), $lte: startOfTomorrow()}}).lean(); 
-  await formatAppointmentsArray(appointmentsResult);
+  await formatAppointmentsArray(appointmentsResult, true);
   return appointmentsResult;
 }
 
@@ -100,17 +104,17 @@ async function deleteAppointmentById(id) {
   }
 }
 
-async function formatAppointmentsArray(appointments){
+async function formatAppointmentsArray(appointments, forToday=false){
   let appointmentsConv = [];
   if(appointments.length != 0){
     appointmentsConv = await Promise.all(appointments.map(async (appointment) => {
-      return await formatAppointment(appointment);      
+      return await formatAppointment(appointment, forToday);      
     }));
   }
   return appointmentsConv;
 }
 
-async function formatAppointment(appointment){
+async function formatAppointment(appointment, forToday){
   if(appointment){
     let client = await clientServices.getClientById(appointment.clientId);
     let dog = await dogServices.getDogById(appointment.dogId);
@@ -122,21 +126,16 @@ async function formatAppointment(appointment){
     appointment['dogName'] = dog.name;
 
     let date = new Date(appointment.dateTime);
-    appointment['dateTime'] = date.toLocaleDateString('en-US') + " " + date.toLocaleTimeString('en-US');
+
+    if(forToday)
+      appointment['dateTime'] = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    else
+      appointment['dateTime'] = date.toLocaleDateString('en-US') + " " + date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 
     return appointment;
   }
 }
 
-
-// module.exports = {
-//   getAppointments,
-//   getAppointmentById,
-//   getTodaysAppointments,
-//   addAppointment,
-//   updateAppointment,
-//   deleteAppointmentById
-// }
 exports.setConnection = setConnection;
 exports.getAppointments = getAppointments;
 exports.getAppointmentById = getAppointmentById;

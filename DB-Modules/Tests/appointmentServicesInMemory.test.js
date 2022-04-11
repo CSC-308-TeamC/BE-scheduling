@@ -221,9 +221,33 @@ describe('Get clients and dogs for ids', () => {
         expect(foundAppointment._id).toStrictEqual(addedAppointment._id);
         expect(foundAppointment.type).toBe(addedAppointment.type);
         expect(foundAppointment.status).toBe(addedAppointment.status);
-        expect(foundAppointment.dateTime).toBe(addedAppointment.dateTime.toLocaleDateString('en-US') + " " + addedAppointment.dateTime.toLocaleTimeString('en-US'));
+        expect(foundAppointment.dateTime).toBe(addedAppointment.dateTime.toLocaleDateString('en-US') + " " + addedAppointment.dateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }));
         expect(foundAppointment.clientName).toBe(allClients[0].fullName);
         expect(foundAppointment.dogName).toBe(allDogs[0].name);
+        expect(foundAppointment.notes).toBe(addedAppointment.notes);
+        expect(foundAppointment.repeating).toBe(addedAppointment.repeating);
+    });
+
+    test("Get appointment by id -- Valid ID", async () => {
+        const dummyAppointment = {
+            type: "Glands",
+            status: "Checked In",
+            dateTime: new Date(),
+            clientId: allClients[0]._id,
+            dogId: allDogs[0]._id,
+            notes: "Missed last appointment.",
+            repeating: false
+        };
+        const result = new appointmentModel(dummyAppointment);
+        const addedAppointment = await result.save();
+        const foundAppointment = await appointmentServices.getAppointmentById(addedAppointment._id, false);
+        expect(foundAppointment).toBeDefined();
+        expect(foundAppointment._id).toStrictEqual(addedAppointment._id);
+        expect(foundAppointment.type).toBe(addedAppointment.type);
+        expect(foundAppointment.status).toBe(addedAppointment.status);
+        expect(foundAppointment.dateTime).toStrictEqual(addedAppointment.dateTime);
+        expect(foundAppointment.clientId).toStrictEqual(allClients[0]._id);
+        expect(foundAppointment.dogId).toStrictEqual(allDogs[0]._id);
         expect(foundAppointment.notes).toBe(addedAppointment.notes);
         expect(foundAppointment.repeating).toBe(addedAppointment.repeating);
     });
@@ -333,7 +357,7 @@ describe('Get clients and dogs for ids', () => {
         expect(result).toBeDefined();
         expect(result.type).toBe(dummyAppointment.type);
         expect(result.status).toBe(dummyAppointment.status);
-        expect(result.dateTime).toBe(dummyAppointment.dateTime.toLocaleDateString('en-US') + " " + dummyAppointment.dateTime.toLocaleTimeString('en-US'))
+        expect(result.dateTime).toBe(dummyAppointment.dateTime.toLocaleDateString('en-US') + " " + dummyAppointment.dateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }));
         expect(result.clientName).toBe(allClients[0].fullName);
         expect(result.dogName).toBe(allDogs[0].name);
         expect(result.notes).toBe(dummyAppointment.notes);
