@@ -1,24 +1,26 @@
-const res = require('express/lib/response');
-const AppointmentSchema = require('../Models/appointment');
-const clientServices = require('./client-services');
-const dogServices = require('./dog-services');
-const dbConnection = require('../dbConnection');
-const { startOfToday } = require('date-fns');
-const { startOfTomorrow } = require('date-fns');
+const res = require("express/lib/response");
+const AppointmentSchema = require("../Models/appointment");
+const clientServices = require("./client-services");
+const dogServices = require("./dog-services");
+const dbConnection = require("../dbConnection");
+const { startOfToday } = require("date-fns");
+const { startOfTomorrow } = require("date-fns");
 let dbC;
 
-function setConnection(newConnection){
+function setConnection(newConnection) {
   dbC = newConnection;
   return dbC;
 }
 
 async function getAppointments() {
   dbC = dbConnection.getDbConnection(dbC);
-  const appointmentModel = dbC.model('Appointment', AppointmentSchema); 
-  try{
-    let appointmentsResults = await formatAppointmentsArray(await appointmentModel.find().lean());
+  const appointmentModel = dbC.model("Appointment", AppointmentSchema);
+  try {
+    let appointmentsResults = await formatAppointmentsArray(
+      await appointmentModel.find().lean()
+    );
     return appointmentsResults;
-  }catch (error){
+  } catch (error) {
     console.log(error);
     return false;
   }
@@ -26,32 +28,35 @@ async function getAppointments() {
 
 async function getAppointmentById(id, format = true) {
   dbC = dbConnection.getDbConnection(dbC);
-  const appointmentModel = dbC.model('Appointment', AppointmentSchema);
+  const appointmentModel = dbC.model("Appointment", AppointmentSchema);
   try {
     let appointmentResult;
-    if(JSON.parse(format))
-       appointmentResult = await formatAppointment(await appointmentModel.findById(id).lean());
-    else
-      appointmentResult = await appointmentModel.findById(id);
-    
+    if (JSON.parse(format))
+      appointmentResult = await formatAppointment(
+        await appointmentModel.findById(id).lean()
+      );
+    else appointmentResult = await appointmentModel.findById(id);
+
     return appointmentResult;
-  }catch (error) {
+  } catch (error) {
     console.log(error);
     return false;
   }
 }
 
-async function getTodaysAppointments(){
+async function getTodaysAppointments() {
   dbC = dbConnection.getDbConnection(dbC);
-  const appointmentModel = dbC.model('Appointment', AppointmentSchema);
-  let appointmentsResult = await appointmentModel.find({dateTime: {$gte: startOfToday(), $lte: startOfTomorrow()}}).lean(); 
+  const appointmentModel = dbC.model("Appointment", AppointmentSchema);
+  let appointmentsResult = await appointmentModel
+    .find({ dateTime: { $gte: startOfToday(), $lte: startOfTomorrow() } })
+    .lean();
   await formatAppointmentsArray(appointmentsResult, true);
   return appointmentsResult;
 }
 
 async function addAppointment(appointment) {
   dbC = dbConnection.getDbConnection(dbC);
-  const appointmentModel = dbC.model('Appointment', AppointmentSchema);
+  const appointmentModel = dbC.model("Appointment", AppointmentSchema);
   try {
     const appointmentToAdd = new appointmentModel(appointment);
     var savedAppointment = await appointmentToAdd.save();
@@ -66,24 +71,28 @@ async function addAppointment(appointment) {
   }
 }
 
-async function updateAppointment(appointment){
+async function updateAppointment(appointment) {
   dbC = dbConnection.getDbConnection(dbC);
-  const appointmentModel = dbC.model('Appointment', AppointmentSchema);
-  try{
-    let updatedAppointment = await appointmentModel.findOneAndUpdate({"_id": appointment._id}, 
-      {
-        "type": appointment.type,
-        "status": appointment.status,
-        "dateTime": appointment.dateTime,
-        "clientId": appointment.clientId,
-        "dogId": appointment.dogId,
-        "notes": appointment.notes,
-        "repeating": appointment.repeating
-      }, 
-      {returnOriginal: false}).lean();
+  const appointmentModel = dbC.model("Appointment", AppointmentSchema);
+  try {
+    let updatedAppointment = await appointmentModel
+      .findOneAndUpdate(
+        { _id: appointment._id },
+        {
+          type: appointment.type,
+          status: appointment.status,
+          dateTime: appointment.dateTime,
+          clientId: appointment.clientId,
+          dogId: appointment.dogId,
+          notes: appointment.notes,
+          repeating: appointment.repeating,
+        },
+        { returnOriginal: false }
+      )
+      .lean();
     await formatAppointment(updatedAppointment);
     return updatedAppointment;
-  }catch(error){
+  } catch (error) {
     console.log(error);
     return false;
   }
@@ -91,7 +100,7 @@ async function updateAppointment(appointment){
 
 async function deleteAppointmentById(id) {
   dbC = dbConnection.getDbConnection(dbC);
-  const appointmentModel = dbC.model('Appointment', AppointmentSchema);
+  const appointmentModel = dbC.model("Appointment", AppointmentSchema);
   try {
     return await appointmentModel.findByIdAndRemove(id);
   } catch (error) {
@@ -100,33 +109,44 @@ async function deleteAppointmentById(id) {
   }
 }
 
-async function formatAppointmentsArray(appointments, forToday=false){
+async function formatAppointmentsArray(appointments, forToday = false) {
   let appointmentsConv = [];
-  if(appointments.length != 0){
-    appointmentsConv = await Promise.all(appointments.map(async (appointment) => {
-      return await formatAppointment(appointment, forToday);      
-    }));
+  if (appointments.length != 0) {
+    appointmentsConv = await Promise.all(
+      appointments.map(async (appointment) => {
+        return await formatAppointment(appointment, forToday);
+      })
+    );
   }
   return appointmentsConv;
 }
 
-async function formatAppointment(appointment, forToday){
-  if(appointment){
+async function formatAppointment(appointment, forToday) {
+  if (appointment) {
     let client = await clientServices.getClientById(appointment.clientId);
     let dog = await dogServices.getDogById(appointment.dogId);
 
     delete appointment.clientId;
     delete appointment.dogId;
 
-    appointment['clientName'] = client.fullName;
-    appointment['dogName'] = dog.name;
+    appointment["clientName"] = client.fullName;
+    appointment["dogName"] = dog.name;
 
     let date = new Date(appointment.dateTime);
 
-    if(forToday)
-      appointment['dateTime'] = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    if (forToday)
+      appointment["dateTime"] = date.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+      });
     else
-      appointment['dateTime'] = date.toLocaleDateString('en-US') + " " + date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+      appointment["dateTime"] =
+        date.toLocaleDateString("en-US") +
+        " " +
+        date.toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "2-digit",
+        });
 
     return appointment;
   }
