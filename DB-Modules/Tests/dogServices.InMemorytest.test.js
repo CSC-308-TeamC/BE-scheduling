@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
-const DogSchema = require('../Models/dog');
-const ClientSchema = require('../Models/client');
-const dogServices = require('../Services/dog-services');
-const clientServices = require('../Services/client-services');
-const dbConnection = require('../dbConnection');
-const { MongoMemoryServer } = require('mongodb-memory-server');
+const mongoose = require("mongoose");
+const DogSchema = require("../Models/dog");
+const ClientSchema = require("../Models/client");
+const dogServices = require("../Services/dog-services");
+const clientServices = require("../Services/client-services");
+const dbConnection = require("../dbConnection");
+const { MongoMemoryServer } = require("mongodb-memory-server");
 
 let mongoServer;
 let connection;
@@ -40,7 +40,7 @@ beforeEach(async () => {
     firstName: "Philippe",
     lastName: "Serrano",
     phoneNumber: "805 878-2811",
-    dogs: "Mui"
+    dogs: "Mui",
   };
   let result = new clientModel(dummyClient);
   let clientAdded = await result.save();
@@ -48,7 +48,7 @@ beforeEach(async () => {
   let dummyDog = {
     name: "Mui",
     breed: "Labrador",
-    clientId: clientAdded._id
+    clientId: clientAdded._id,
   };
   result = new dogModel(dummyDog);
   await result.save();
@@ -57,7 +57,7 @@ beforeEach(async () => {
     firstName: "Mae",
     lastName: "Ware",
     phoneNumber: "423 897-5238",
-    dogs: "Salt"
+    dogs: "Salt",
   };
   result = new clientModel(dummyClient);
   clientAdded = await result.save();
@@ -65,7 +65,7 @@ beforeEach(async () => {
   dummyDog = {
     name: "Salt",
     breed: "Terrier",
-    clientId: clientAdded._id
+    clientId: clientAdded._id,
   };
   result = new dogModel(dummyDog);
   await result.save();
@@ -74,7 +74,7 @@ beforeEach(async () => {
     firstName: "Ryan",
     lastName: "Reynold",
     phoneNumber: "194 652-3285",
-    dogs: "Himmel"
+    dogs: "Himmel",
   };
   result = new clientModel(dummyClient);
   clientAdded = await result.save();
@@ -82,7 +82,7 @@ beforeEach(async () => {
   dummyDog = {
     name: "Himmel",
     breed: "Mixed",
-    clientId: clientAdded._id
+    clientId: clientAdded._id,
   };
   result = new dogModel(dummyDog);
   await result.save();
@@ -94,7 +94,7 @@ afterEach(async () => {
 });
 
 //Tests-------------------------------------------------------------------------------------------------
-  //Get all Records------------------------------------------------------|
+//Get all Records------------------------------------------------------|
 test("Get all dogs -- Success", async () => {
   const dogs = await dogServices.getDogs();
   expect(dogs).toBeDefined();
@@ -106,7 +106,7 @@ test("Get all dogs -- Nonexistant clientID", async () => {
   const dummyDog = {
     name: "Kali",
     breed: "Chow",
-    clientId: falseId
+    clientId: falseId,
   };
   const result = new dogModel(dummyDog);
   await result.save();
@@ -114,7 +114,7 @@ test("Get all dogs -- Nonexistant clientID", async () => {
   expect(dogs).toBeFalsy();
 });
 
-  //Get Record by id------------------------------------------------------|
+//Get Record by id------------------------------------------------------|
 test("Get dog by id -- Nonexistant ID", async () => {
   const falseId = "6132b9d47cefd0cc1916b6a9";
   const foundDog = await dogServices.getDogById(falseId);
@@ -127,7 +127,7 @@ test("Get dog by id -- Invalid ID", async () => {
   expect(foundDog).toBeFalsy();
 });
 
-  //Creating Record------------------------------------------------------|
+//Creating Record------------------------------------------------------|
 test("Adding dog -- failure path (No clientId)", async () => {
   const dummyDog = {
     name: "Kali",
@@ -137,7 +137,7 @@ test("Adding dog -- failure path (No clientId)", async () => {
   expect(result).toBeFalsy();
 });
 
-  //Delete Record------------------------------------------------------|
+//Delete Record------------------------------------------------------|
 test("Deleting a client by Id -- nonexistant ID", async () => {
   const falseId = "6132b9d47cefd0cc1916b6a9";
   const deleteResult = await dogServices.deleteDogById(falseId);
@@ -151,18 +151,18 @@ test("Deleting a client by Id -- invalid ID", async () => {
 });
 
 //Tests Requiring all Clients-------------------------------------------------------------------------------------------------
-describe('Get clients for ids', () => {
+describe("Get clients for ids", () => {
   let allClients;
   beforeEach(async () => {
     allClients = await clientServices.getClients();
-  })
+  });
 
   //Get Record------------------------------------------------------|
   test("Get dog by id -- Valid ID", async () => {
     const dummyDog = {
       name: "Kali",
       breed: "Chow",
-      clientId: allClients[0]._id
+      clientId: allClients[0]._id,
     };
     const result = new dogModel(dummyDog);
     const addedDog = await result.save();
@@ -179,7 +179,7 @@ describe('Get clients for ids', () => {
     const dummyDog = {
       name: "Kali",
       breed: "Chow",
-      clientId: allClients[0]._id
+      clientId: allClients[0]._id,
     };
     const result = await dogServices.addDog(dummyDog);
     expect(result).toBeTruthy();
@@ -188,20 +188,20 @@ describe('Get clients for ids', () => {
     expect(result.clientId).toStrictEqual(dummyDog.clientId);
     expect(result).toHaveProperty("_id");
   });
-  
+
   test("Adding dog -- failure path (No name)", async () => {
     const dummyDog = {
       breed: "Chow",
-      clientId: allClients[0]._id
+      clientId: allClients[0]._id,
     };
     const result = await dogServices.addDog(dummyDog);
     expect(result).toBeFalsy();
   });
-  
+
   test("Adding dog -- failure path (No breed)", async () => {
     const dummyDog = {
       name: "Kali",
-      clientId: allClients[0]._id
+      clientId: allClients[0]._id,
     };
     const result = await dogServices.addDog(dummyDog);
     expect(result).toBeFalsy();
@@ -214,7 +214,7 @@ describe('Get clients for ids', () => {
       _id: dogs[0],
       name: "George",
       breed: "Terrier",
-      clientId: allClients[0]._id
+      clientId: allClients[0]._id,
     };
     const result = await dogServices.updateDog(dummyDog);
     expect(result).toBeDefined();
@@ -222,42 +222,41 @@ describe('Get clients for ids', () => {
     expect(result.breed).toBe(dummyDog.breed);
     expect(result.clientName).toBe(allClients[0].fullName);
   });
-  
+
   test("Update dog -- nonexistant Dog", async () => {
     const falseId = "6132b9d47cefd0cc1916b6a9";
     const dummyDog = {
       _id: falseId,
       name: "George",
       breed: "Terrier",
-      clientId: allClients[0]._id
+      clientId: allClients[0]._id,
     };
     const result = await dogServices.updateDog(dummyDog);
     expect(result).toBeFalsy();
   });
-  
+
   test("Update dog -- invalid DogID", async () => {
     const invalidId = 1234;
     const dummyClient = {
       _id: invalidId,
       name: "George",
       breed: "Terrier",
-      clientId: allClients[0]._id
+      clientId: allClients[0]._id,
     };
     const result = await dogServices.updateDog(dummyClient);
     expect(result).toBeFalsy();
   });
-  
+
   //Delete Record------------------------------------------------------|
   test("Deleting a dog by Id -- successful path", async () => {
     const dummyDog = {
       name: "Kali",
       breed: "Chow",
-      clientId: allClients[0]._id
+      clientId: allClients[0]._id,
     };
     const result = new dogModel(dummyDog);
     const addedDog = await result.save();
     const deleteResult = await dogServices.deleteDogById(addedDog._id);
     expect(deleteResult).toBeDefined();
   });
-
 });
