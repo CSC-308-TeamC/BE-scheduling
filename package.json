@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --forceExit --coverage --detectOpenHandles",
     "dev": "nodemon backend.js",
-    "start": "node backend.js"
+    "start": "node backend.js",
+    "prepare": "husky install"
   },
   "author": "",
   "license": "ISC",
@@ -22,7 +23,13 @@
     "mongoose": "^6.2.4"
   },
   "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.8",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "prettier": "2.6.2"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
