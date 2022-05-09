@@ -100,13 +100,6 @@ async function formatClient(client) {
   }
 }
 
-// module.exports -{
-//   getClients,
-//   getClientById,
-//   addClient,
-//   updateClient,
-//   deleteClientById
-// }
 exports.setConnection = setConnection;
 exports.getClients = getClients;
 exports.getClientById = getClientById;

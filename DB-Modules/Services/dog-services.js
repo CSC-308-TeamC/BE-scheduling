@@ -106,13 +106,6 @@ async function formatDog(dog) {
   }
 }
 
-// module.exports = {
-//   getDogs,
-//   getDogById,
-//   addDog,
-//   updateDog,
-//   deleteDogById
-// }
 exports.setConnection = setConnection;
 exports.getDogs = getDogs;
 exports.getDogById = getDogById;

@@ -1,5 +1,6 @@
 const UserSchema = require("../Models/user");
 const dbConnection = require("../dbConnection");
+const bcrypt = require("bcryptjs");
 let dbC;
 
 function setConnection(newConnection) {
@@ -18,7 +19,7 @@ async function getUserByEmail(email) {
   dbC = dbConnection.getDbConnection(dbC);
   const userModel = dbC.model("User", UserSchema);
   try {
-    let result = await userModel.findById(id).lean();
+    let result = await userModel.findOne({ email: email });
     return result;
   } catch (error) {
     console.log(error);
@@ -30,14 +31,13 @@ async function addUser(user) {
   dbC = dbConnection.getDbConnection(dbC);
   const userModel = dbC.model("User", UserSchema);
   // generate salt to hash password
-  const salt = await bcrypt.genSalt(process.env.PASSWORD_SALT);
-  const hashedPWd = await bcrypt.hash(user.password, salt);
-  user.password = hashedPWd;
+  const salt = await bcrypt.genSalt(parseInt(process.env.PASSWORD_SALT));
+  const hashedPwd = await bcrypt.hash(user.password, salt);
+  user.password = hashedPwd;
 
   try {
     const userToAdd = new userModel(user);
     var savedUser = await userToAdd.save();
-
     user._id = savedUser._id;
     return user;
   } catch (error) {
@@ -70,11 +70,11 @@ async function updateUser(user) {
   }
 }
 
-async function deleteUserById(id) {
+async function deleteUserByEmail(email) {
   dbC = dbConnection.getDbConnection(dbC);
-  const userModel = dbC.model("Client", UserSchema);
+  const userModel = dbC.model("User", UserSchema);
   try {
-    return await userModel.findByIdAndRemove(id);
+    return await userModel.deleteOne({ email: email });
   } catch (error) {
     console.log(error);
     return false;
@@ -86,4 +86,4 @@ exports.getUsers = getUsers;
 exports.getUserByEmail = getUserByEmail;
 exports.addUser = addUser;
 exports.updateUser = updateUser;
-exports.deleteUserById = deleteUserById;
+exports.deleteUserByEmail = deleteUserByEmail;
