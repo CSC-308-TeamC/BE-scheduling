@@ -14,8 +14,7 @@ async function get(req, res) {
 async function getById(req, res) {
   const id = req.params.id;
   const format = req.query.format;
-  var result;
-  result = await appointmentServices.getAppointmentById(id, format);
+  var result = await appointmentServices.getAppointmentById(id, format);
 
   if (result) {
     res.send({ appointmentData: result });

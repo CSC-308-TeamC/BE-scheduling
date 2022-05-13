@@ -1,13 +1,16 @@
 const dogServices = require("../../DB-Modules/Services/dog-services");
 
 async function get(req, res) {
-  const result = await dogServices.getDogs();
+  const format = req.params.format;
+  const result = await dogServices.getDogs(format);
   res.send({ dogData: result });
 }
 
 async function getById(req, res) {
   const id = req.params.id;
-  const result = await dogServices.getDogById(id);
+  const format = req.query.format;
+  const result = await dogServices.getDogById(id, format);
+
   if (result) res.send({ dogData: result }).end();
   else res.status(404).send("Resource not found");
 }

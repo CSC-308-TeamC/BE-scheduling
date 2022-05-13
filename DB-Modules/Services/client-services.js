@@ -1,5 +1,7 @@
 const ClientSchema = require("../Models/client");
 const dbConnection = require("../dbConnection");
+const appointmentServices = require("./appointment-services");
+const dogServices = require("./dog-services");
 let dbC;
 
 function setConnection(newConnection) {
@@ -7,19 +9,25 @@ function setConnection(newConnection) {
   return dbC;
 }
 
-async function getClients() {
+async function getClients(format = true) {
   dbC = dbConnection.getDbConnection(dbC);
   const clientModel = dbC.model("Client", ClientSchema);
-  let clientResults = await formatClientsArray(await clientModel.find().lean());
+  let clientResults = await clientModel.find().lean();
+  if (JSON.parse(format)) {
+    clientResults = await formatClientsArray(clientResults);
+  }
+
   return clientResults;
 }
 
-async function getClientById(id) {
+async function getClientById(id, format = true) {
   dbC = dbConnection.getDbConnection(dbC);
   const clientModel = dbC.model("Client", ClientSchema);
   try {
     let result = await clientModel.findById(id).lean();
-    await formatClient(result);
+
+    if (JSON.parse(format)) result = await formatClient(result);
+
     return result;
   } catch (error) {
     console.log(error);
@@ -72,6 +80,23 @@ async function deleteClientById(id) {
   dbC = dbConnection.getDbConnection(dbC);
   const clientModel = dbC.model("Client", ClientSchema);
   try {
+    //If client is deleted delete all associated appointments
+    let associatedAppointments = await appointmentServices.getAppointments(
+      false
+    );
+    associatedAppointments.forEach(async (appointment) => {
+      if (appointment.clientId.equals(id)) {
+        await appointmentServices.deleteAppointmentById(appointment._id);
+      }
+    });
+    //If client is delted delete all associated dogs.
+    let associatedDogs = await dogServices.getDogs(false);
+    associatedDogs.forEach(async (dog) => {
+      if (dog.clientId.equals(id)) {
+        await dogServices.deleteDogById(dog._id);
+      }
+    });
+
     return await clientModel.findByIdAndRemove(id);
   } catch (error) {
     console.log(error);

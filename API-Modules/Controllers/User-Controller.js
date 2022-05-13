@@ -18,17 +18,17 @@ async function getByEmail(req, res) {
 
 function generateAccessToken(email) {
   return jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
-    expiresIn: "150s",
+    expiresIn: "600s",
   });
 }
 
 async function signUp(req, res) {
   if (!req.body.email || !req.body.password) {
     //Missing password or Missing Email
-    res.status(400).send("Bad request: Invalid input data.");
+    res.status(400).send("Bad request: Missing field.");
   } else {
     //Has password and email
-    if (!userServices.getUserByEmail(req.body.email)) {
+    if (userServices.getUserByEmail(req.body.email)) {
       //Email has already been used
       res.status(409).send("Email already taken.");
     } else {

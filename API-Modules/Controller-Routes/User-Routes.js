@@ -13,7 +13,7 @@ router.post("/signIn", userController.signIn);
 
 router.patch("/", userController.update);
 
-router.delete("/:id", userController.remove);
+router.delete("/:email", userController.remove);
 
 router.use(function (req, res, next) {
   next();

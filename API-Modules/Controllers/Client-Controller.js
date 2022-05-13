@@ -1,13 +1,15 @@
 const clientServices = require("../../DB-Modules/Services/client-services");
 
 async function get(req, res) {
-  const result = await clientServices.getClients();
+  const format = req.params.format;
+  const result = await clientServices.getClients(format);
   res.send({ clientData: result });
 }
 
 async function getById(req, res) {
   const id = req.params.id;
-  const result = await clientServices.getClientById(id);
+  const format = req.query.format;
+  const result = await clientServices.getClientById(id, format);
   if (result) res.send({ clientData: result }).end();
   else res.status(404).send("Resource not found");
 }

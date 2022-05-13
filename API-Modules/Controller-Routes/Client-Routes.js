@@ -4,7 +4,7 @@ const { authenticateUser } = require("./Authentication-Middleware");
 const clientController = require("../Controllers/Client-Controller");
 
 router.use((req, res, next) => authenticateUser(req, res, next));
-// router.use((req, res, next) => next());
+//router.use((req, res, next) => next());
 
 router.get("/", clientController.get);
 
