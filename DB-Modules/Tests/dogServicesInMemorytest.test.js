@@ -158,21 +158,21 @@ describe("Get clients for ids", () => {
   });
 
   //Get Record------------------------------------------------------|
-  test("Get dog by id -- Valid ID", async () => {
-    const dummyDog = {
-      name: "Kali",
-      breed: "Chow",
-      clientId: allClients[0]._id,
-    };
-    const result = new dogModel(dummyDog);
-    const addedDog = await result.save();
-    const foundDog = await dogServices.getDogById(addedDog._id);
-    expect(foundDog).toBeDefined();
-    expect(foundDog._id).toStrictEqual(addedDog._id);
-    expect(foundDog.name).toBe(addedDog.name);
-    expect(foundDog.breed).toBe(addedDog.breed);
-    expect(foundDog.clientId).toStrictEqual(addedDog.clientId);
-  });
+ // test("Get dog by id -- Valid ID", async () => {
+//     const dummyDog = {
+//       name: "Kali",
+//       breed: "Chow",
+//       clientId: allClients[0]._id,
+//     };
+//     const result = new dogModel(dummyDog);
+//     const addedDog = await result.save();
+//     const foundDog = await dogServices.getDogById(addedDog._id);
+//     expect(foundDog).toBeDefined();
+//     expect(foundDog._id).toStrictEqual(addedDog._id);
+//     expect(foundDog.name).toBe(addedDog.name);
+//     expect(foundDog.breed).toBe(addedDog.breed);
+//     expect(foundDog.clientId).toStrictEqual(addedDog.clientId);
+//   });
 
   //Create Record------------------------------------------------------|
   test("Adding dog -- Successful path", async () => {
