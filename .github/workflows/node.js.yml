@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [TASK-cloudDB, ci-with-testing]
+    branches: [main, ci-with-testing]
   pull_request:
-    branches: [TASK-cloudDB, ci-with-testing]
+    branches: [main, ci-with-testing]
 
 jobs:
   build:
