@@ -12,13 +12,16 @@ function setConnection(newConnection) {
   return dbC;
 }
 
-async function getAppointments() {
+async function getAppointments(format = true) {
   dbC = dbConnection.getDbConnection(dbC);
   const appointmentModel = dbC.model("Appointment", AppointmentSchema);
   try {
-    let appointmentsResults = await formatAppointmentsArray(
-      await appointmentModel.find().lean()
-    );
+    let appointmentsResults = await appointmentModel.find().lean();
+
+    if (format) {
+      appointmentResults = await formatAppointmentsArray(appointmentsResults);
+    }
+
     return appointmentsResults;
   } catch (error) {
     console.log(error);
@@ -30,12 +33,10 @@ async function getAppointmentById(id, format = true) {
   dbC = dbConnection.getDbConnection(dbC);
   const appointmentModel = dbC.model("Appointment", AppointmentSchema);
   try {
-    let appointmentResult;
+    let appointmentResult = await appointmentModel.findById(id).lean();
+
     if (JSON.parse(format))
-      appointmentResult = await formatAppointment(
-        await appointmentModel.findById(id).lean()
-      );
-    else appointmentResult = await appointmentModel.findById(id);
+      appointmentResult = await formatAppointment(appointmentResult);
 
     return appointmentResult;
   } catch (error) {

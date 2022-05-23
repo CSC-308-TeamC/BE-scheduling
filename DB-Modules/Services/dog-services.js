@@ -1,5 +1,6 @@
 const DogSchema = require("../Models/dog");
 const dbConnection = require("../dbConnection");
+const appointmentServices = require("./appointment-services");
 const clientServices = require("./client-services");
 const res = require("express/lib/response");
 let dbC;
@@ -9,11 +10,14 @@ function setConnection(newConnection) {
   return dbC;
 }
 
-async function getDogs() {
+async function getDogs(format = true) {
   dbC = dbConnection.getDbConnection(dbC);
   const dogModel = dbC.model("Dog", DogSchema);
   try {
-    let dogResults = await formatDogs(await dogModel.find().lean());
+    let dogResults = await dogModel.find().lean();
+    if (format) {
+      dogResults = await formatDogs(dogResults);
+    }
     return dogResults;
   } catch (error) {
     console.log(error);
@@ -21,12 +25,14 @@ async function getDogs() {
   }
 }
 
-async function getDogById(id) {
+async function getDogById(id, format = true) {
   dbC = dbConnection.getDbConnection(dbC);
   const dogModel = dbC.model("Dog", DogSchema);
   try {
-    let result = await dogModel.findById(id);
-    await formatDog(result);
+    let result = await dogModel.findById(id).lean();
+
+    if (JSON.parse(format)) result = await formatDog(result);
+
     return result;
   } catch (error) {
     console.log(error);
@@ -78,6 +84,15 @@ async function deleteDogById(id) {
   dbC = dbConnection.getDbConnection(dbC);
   const dogModel = dbC.model("Dog", DogSchema);
   try {
+    //If dog is deleted, delete all appointments it is contained within.
+    let associatedAppointments = await appointmentServices.getAppointments(
+      false
+    );
+    associatedAppointments.forEach(async (appointment) => {
+      if (appointment.dogId.equals(id)) {
+        await appointmentServices.deleteAppointmentById(appointment._id);
+      }
+    });
     return await dogModel.findByIdAndRemove(id);
   } catch (error) {
     console.log(error);
@@ -106,13 +121,6 @@ async function formatDog(dog) {
   }
 }
 
-// module.exports = {
-//   getDogs,
-//   getDogById,
-//   addDog,
-//   updateDog,
-//   deleteDogById
-// }
 exports.setConnection = setConnection;
 exports.getDogs = getDogs;
 exports.getDogById = getDogById;
