@@ -18,23 +18,40 @@ describe("Backend (REST API) is listening", () => {
     it("GIVEN I run the backend", () => {});
 
     it("WHEN I visit the root endpoint", () => {
-      cy.request("http://localhost:5000").then((response) => {
-        //Using matchers from Chai: https://www.chaijs.com/guide/styles/#assert
-        //All Cypress supported matchers here: https://docs.cypress.io/guides/references/assertions
-        assert.isNotNull(response.body, "THEN it does not smoke");
-        assert.equal(
-          response.body,
-          "Hello World!",
-          'AND returns "Hello World!'
-        );
-        assert.equal(response.status, 200, "AND the response code is 200");
+      cy.request("https://dog-grooming-api.herokuapp.com/users").then(
+        (response) => {
+          //Using matchers from Chai: https://www.chaijs.com/guide/styles/#assert
+          //All Cypress supported matchers here: https://docs.cypress.io/guides/references/assertions
+          assert.isNotNull(response.body, "THEN it does not smoke");
+          // assert.equal(
+          //  response.body,
+          //  {"userData":[{"_id":"62756a5e83a398b7749c48ce","email":"something@email.com","password":"$2a$08$wYXmS9I7XeRIAvFodYf15uZvTVWNDpD/qYKTH/MhbM4VFrNrl3pGC","administrator":false,"__v":0},{"_id":"627d5210cd5401e489551b2a","email":"test@gmail.com","password":"$2a$10$rncAYvw2lUiCBe58tlXjfuBBZ9yQXJVG7uYn6KSlCfgiyiQS.WVU2","administrator":false,"__v":0},{"_id":"627d530c72a4c31a0d16ac42","email":"tester@gmail.com","password":"$2a$10$NqcnTTgT6SDcCPWgl/gnqeNLPHxwbn9Z0sNmCa42sTfr1YE4Hj4x.","administrator":false,"__v":0},{"_id":"628536e5d9a4447f1b7235da","email":"doggy@gmail.com","password":"$2a$08$3X..JSir37u/TvVGGz7paOzaDjtAti2DefMs9eCgJPFB6zdV66HYi","administrator":false,"__v":0},{"_id":"6285376bd9a4447f1b7235e0","email":"doggys@gmail.com","password":"$2a$08$UnmkCxMkxk7wboRKrbyr5OcRAPHTRkEcPcwZ/8uNLd3ZFWqbqXjN2","administrator":false,"__v":0}]}
+          // );
+          // assert.equal(response.status, 200, "AND the response code is 200");
 
-        //OR use another set of supported matchers from Chai, the Expect style:
-        //https://www.chaijs.com/guide/styles/#expect
-        // expect(response.body).to.be.a('string');
-        // expect(response.body).to.equal('Hello World!');
-        // expect(response.status).to.equal(200);
-      });
+          //OR use another set of supported matchers from Chai, the Expect style:
+          //https://www.chaijs.com/guide/styles/#expect
+          expect(response.body).to.be.a("object");
+          //arr = response.body
+          //arr.ForEach((elem) => expect(response.body).to.property('{ Object (userData) }'))
+          //expect(response.body).to.deep.equal('{ Object (userData) }');
+          expect(response.body).to.exist;
+          // expect(response.body).to.deep.equal({"userData":[{"_id":"62756a5e83a398b7749c48ce",
+          // "email":"something@email.com","password":"$2a$08$wYXmS9I7XeRIAvFodYf15uZvTVWNDpD/qYKTH/MhbM4VFrNrl3pGC",
+          // "administrator":false,"__v":0},{"_id":"627d5210cd5401e489551b2a","email":"test@gmail.com",
+          // "password":"$2a$10$rncAYvw2lUiCBe58tlXjfuBBZ9yQXJVG7uYn6KSlCfgiyiQS.WVU2","administrator":false,"__v":0},
+          // {"_id":"627d530c72a4c31a0d16ac42","email":"tester@gmail.com","password":"$2a$10$NqcnTTgT6SDcCPWgl/gnqeNLPHxwbn9Z0sNmCa42sTfr1YE4Hj4x.",
+          // "administrator":false,"__v":0},{"_id":"628536e5d9a4447f1b7235da","email":"doggy@gmail.com","password":"$2a$08$3X..JSir37u/TvVGGz7paOzaDjtAti2DefMs9eCgJPFB6zdV66HYi",
+          // "administrator":false,"__v":0},{"_id":"6285376bd9a4447f1b7235e0","email":"doggys@gmail.com","password":"$2a$08$UnmkCxMkxk7wboRKrbyr5OcRAPHTRkEcPcwZ/8uNLd3ZFWqbqXjN2",
+          // "administrator":false,"__v":0}]});
+          expect(response.body).to.be.instanceOf("userData");
+          // assert.to.equal(
+          //  response.body,
+          //   "Object (userData)"
+          // );
+          expect(response.status).to.equal(200);
+        }
+      );
     });
   });
 });
@@ -59,40 +76,41 @@ describe("Backend (REST API) is listening", () => {
  */
 
 describe("API takes an obj and adds it to the DB", () => {
-  context("Successfull post", () => {
+  context("Successfull get", () => {
     before(() => {});
 
     let user = {};
 
     it("GIVEN My user object has valid fields (user and job)", () => {
       user = {
-        name: "Pamela",
-        job: "Software Engineer",
+        email: "doggys@gmail.com",
+        password:
+          "$2a$08$UnmkCxMkxk7wboRKrbyr5OcRAPHTRkEcPcwZ/8uNLd3ZFWqbqXjN2",
       };
     });
 
     it("WHEN I attempt to post the user obj", () => {
-      cy.request("POST", "http://localhost:5000/users", user).then(
+      cy.request("GET", "https://dog-grooming-api.herokuapp.com/", user).then(
         (response) => {
           //Using matchers from Chai: https://www.chaijs.com/guide/styles/#assert
           // All Cypress supported matchers here: https://docs.cypress.io/guides/references/assertions
           assert.equal(
             response.status,
-            201,
-            "THEN I receive a successfull response (code 201)"
+            200,
+            "THEN I receive a successful response (code 200)"
           );
-          assert.exists(
-            response.body._id,
-            "AND the response object contains the property _id"
-          );
+          //   assert.exists(
+          //     response.body.email,
+          //     "AND the response object contains the property _id"
+          //   );
           assert.equal(
-            response.body.name,
-            user.name,
+            response.body.email,
+            user.email,
             "AND the response object contains the same name and job I passed"
           );
           assert.equal(
-            response.body.job,
-            user.job,
+            response.body.password,
+            user.passwrod,
             "AND the response object contains the same name and job I passed"
           );
         }
@@ -100,7 +118,7 @@ describe("API takes an obj and adds it to the DB", () => {
     });
   });
 
-  context("Unsuccessfull post", () => {
+  context("Unsuccessful post", () => {
     before(() => {});
 
     let user = {};
@@ -115,18 +133,14 @@ describe("API takes an obj and adds it to the DB", () => {
     it("WHEN I attempt to post the user obj", () => {
       cy.request({
         method: "POST",
-        url: "http://localhost:5000/users",
+        url: "https://dog-grooming-api.herokuapp.com/clients",
         body: user,
         failOnStatusCode: false,
       }).then((response) => {
         //Using matchers from Chai: https://www.chaijs.com/guide/styles/#assert
         //All Cypress supported matchers here: https://docs.cypress.io/guides/references/assertions
-        assert.equal(
-          response.status,
-          400,
-          "THEN I receive a failure response (code 400)"
-        );
-        assert.notExists(response.body, "AND there's no response obj");
+        assert.equal(response.status, 401, "No token");
+        //assert.notExists('No token');
       });
     });
   });
