@@ -3,11 +3,12 @@
 Accessible Link:
 https://dog-grooming-api.herokuapp.com/
 
-CI/CD Steps:
-npm ci
-npm run build --if-present
-npm test
-with:
+# CI/CD Steps:
+          npm ci
+          npm run build --if-present
+          npm test
+
+# Include CI/CD details
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "dog-grooming-api"
           heroku_email: {"user@gmail.com"}
