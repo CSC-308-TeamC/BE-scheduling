@@ -17,20 +17,26 @@ https://dog-grooming-api.herokuapp.com/
           `PORT:`               Port to utilize should the connection to the cloud hosted DB fail
   5. Run `npm run dev` to launch.
 
-# CI/CD Steps:
+## CI/CD Steps:
           npm ci
           npm run build --if-present
           npm test
 
-# Include CI/CD details
+## Include CI/CD details
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "dog-grooming-api"
           heroku_email: {"user@gmail.com"}
+         
+## Automated Acceptance Testing
+ ### `npx cypress open`
 
- UI Protoyping Schema:
+Launches the test runner for Cypress API.\
+See the section about [running tests](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests#Hooks) for more information.
+
+## UI Protoyping Schema:
 https://www.figma.com/file/YFBYd05CtpXAUl1H2whxEb/Rush%3A-Web-app-prototyping-kit-(Community)?node-id=102%3A408
 
-Product Spec Documentation:
+## Product Spec Documentation:
 https://docs.google.com/document/d/1-tYBP6pn_fnwizhPB3ZhvTtMLqb8_aKRsvDxsaNPS-c/edit?usp=sharing
 
 # Testing Coverage Reports
