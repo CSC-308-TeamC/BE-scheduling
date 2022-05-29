@@ -171,7 +171,7 @@ describe("Get clients for ids", () => {
     expect(foundDog._id).toStrictEqual(addedDog._id);
     expect(foundDog.name).toBe(addedDog.name);
     expect(foundDog.breed).toBe(addedDog.breed);
-    expect(foundDog.clientId).toStrictEqual(addedDog.clientId);
+    expect(foundDog.clientName).toBe(allClients[0].fullName);
   });
 
   //Create Record------------------------------------------------------|
