@@ -3,6 +3,15 @@
 Accessible Link:
 https://dog-grooming-api.herokuapp.com/
 
+CI/CD Steps:
+npm ci
+npm run build --if-present
+npm test
+with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "dog-grooming-api"
+          heroku_email: {"user@gmail.com"}
+
  UI Protoyping Schema:
 https://www.figma.com/file/YFBYd05CtpXAUl1H2whxEb/Rush%3A-Web-app-prototyping-kit-(Community)?node-id=102%3A408
 
