@@ -5,6 +5,8 @@
   "main": "backend.js",
   "scripts": {
     "test": "jest --forceExit --coverage --detectOpenHandles",
+    "e2e": "cypress run",
+    "cy:open": "cypress open",
     "dev": "nodemon backend.js",
     "start": "node backend.js",
     "prepare": "husky install"
@@ -27,6 +29,7 @@
   },
   "devDependencies": {
     "cypress": "^9.6.1",
+    "eslint-plugin-cypress": "^2.12.1",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.8",
     "morgan": "^1.10.0",
