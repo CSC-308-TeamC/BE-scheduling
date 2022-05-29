@@ -30,5 +30,6 @@ https://www.figma.com/file/YFBYd05CtpXAUl1H2whxEb/Rush%3A-Web-app-prototyping-ki
 Product Spec Documentation:
 https://docs.google.com/document/d/1-tYBP6pn_fnwizhPB3ZhvTtMLqb8_aKRsvDxsaNPS-c/edit?usp=sharing
 
+![In-Memory-Code-Covage](https://user-images.githubusercontent.com/91435899/170849346-31e03fe4-dae9-43dd-89f2-1bb9bec9787b.png)
 
-![mock-code-coverage](https://user-images.githubusercontent.com/74291980/162647492-b4ae9cc9-0118-4f10-8c76-60d5583747f1.PNG)
+![Mock-Code-Coverage](https://user-images.githubusercontent.com/74291980/162647492-b4ae9cc9-0118-4f10-8c76-60d5583747f1.PNG)
