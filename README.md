@@ -40,8 +40,8 @@ https://www.figma.com/file/YFBYd05CtpXAUl1H2whxEb/Rush%3A-Web-app-prototyping-ki
 https://docs.google.com/document/d/1-tYBP6pn_fnwizhPB3ZhvTtMLqb8_aKRsvDxsaNPS-c/edit?usp=sharing
 
 # Testing Coverage Reports
-###In Memory Tests  
+### In Memory Tests  
 ![In-Memory-Code-Covage](https://user-images.githubusercontent.com/91435899/170849346-31e03fe4-dae9-43dd-89f2-1bb9bec9787b.png)  
-###Mock Tests  
+### Mock Tests  
 ![mock-tests-coverage](https://user-images.githubusercontent.com/74291980/170851364-90bb1ff9-4377-46ff-a7be-b0584ef5a5ff.PNG)
 
