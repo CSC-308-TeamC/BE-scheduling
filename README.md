@@ -8,10 +8,10 @@ https://dog-grooming-api.herokuapp.com/
   2. Run `npm install` to install all necessary packages.
   3. Create .env file in the root folder.
   4. Add the following variables:    
-          `MONGODB_URI:       Description: The URL to the cloud hosted DB`  
-          `PASSWORD_SALT:      Salt used in encrypting passwords`  
-          `TOKEN_SECRET:       Used to verifty user JWT`  
-          `PORT:               Port to utilize should the connection to the cloud hosted DB fail`  
+          `MONGODB_URI:`        Description: The URL to the cloud hosted DB  
+          `PASSWORD_SALT:`      Salt used in encrypting passwords  
+          `TOKEN_SECRET:`       Used to verifty user JWT
+          `PORT:`               Port to utilize should the connection to the cloud hosted DB fail
   5. Run `npm run dev` to launch.
 
 # CI/CD Steps:
