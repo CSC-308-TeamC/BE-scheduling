@@ -10,7 +10,7 @@ https://dog-grooming-api.herokuapp.com/
   4. Add the following variables:    
           `MONGODB_URI:`        Description: The URL to the cloud hosted DB  
           `PASSWORD_SALT:`      Salt used in encrypting passwords  
-          `TOKEN_SECRET:`       Used to verifty user JWT
+          `TOKEN_SECRET:`       Used to verifty user JWT  
           `PORT:`               Port to utilize should the connection to the cloud hosted DB fail
   5. Run `npm run dev` to launch.
 
