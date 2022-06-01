@@ -10,7 +10,7 @@ const server = express();
 const port = 5000;
 server.use(cors());
 server.use(express.json());
-
+//GH actions test
 //Get requests-------------------------------------------------------------------------------------------------------
 server.get("/", (req, res) => {
   res.redirect("/appointments");
