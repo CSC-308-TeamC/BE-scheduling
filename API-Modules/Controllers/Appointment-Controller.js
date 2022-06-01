@@ -2,11 +2,12 @@ const appointmentServices = require("../../DB-Modules/Services/appointment-servi
 
 async function get(req, res) {
   const date = req.query.date;
+  const format = req.query.format;
   if (date) {
     const result = await appointmentServices.getTodaysAppointments();
     res.send({ appointmentData: result });
   } else {
-    const result = await appointmentServices.getAppointments();
+    const result = await appointmentServices.getAppointments(format);
     res.send({ appointmentData: result });
   }
 }

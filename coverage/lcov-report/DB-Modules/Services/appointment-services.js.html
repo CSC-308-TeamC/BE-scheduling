@@ -405,7 +405,7 @@ async function getAppointments(format = true) {
   try {
     let appointmentsResults = await appointmentModel.find().lean();
 &nbsp;
-    if (format) {
+    if(JSON.parse(format)){
       appointmentResults = await formatAppointmentsArray(appointmentsResults);
     }
 &nbsp;
@@ -561,7 +561,7 @@ exports.deleteAppointmentById = deleteAppointmentById;
         rel="noopener noreferrer"
         >istanbul</a
       >
-      at Sat May 28 2022 18:42:10 GMT-0700 (Pacific Daylight Time)
+      at Wed Jun 01 2022 10:33:43 GMT-0700 (Pacific Daylight Time)
     </div>
     <script src="../../prettify.js"></script>
     <script>
