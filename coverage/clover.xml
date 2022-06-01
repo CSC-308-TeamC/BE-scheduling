@@ -1,247 +1,316 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1649439382793" clover="3.2.0">
-  <project timestamp="1649439382793" name="All files">
-    <metrics statements="212" coveredstatements="211" conditionals="20" coveredconditionals="16" methods="29" coveredmethods="29" elements="261" coveredelements="256" complexity="0" loc="212" ncloc="212" packages="3" files="7" classes="7"/>
+<coverage generated="1654104824003" clover="3.2.0">
+  <project timestamp="1654104824003" name="All files">
+    <metrics statements="275" coveredstatements="268" conditionals="41" coveredconditionals="32" methods="37" coveredmethods="37" elements="353" coveredelements="337" complexity="0" loc="275" ncloc="275" packages="3" files="9" classes="9"/>
     <package name="DB-Modules">
-      <metrics statements="8" coveredstatements="7" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
       <file name="dbConnection.js" path="C:\Users\PhilippeWS\Documents\Calpoly School Work\Winter Quarter 2022\CPE-308\Scheduling\be-scheduling\DB-Modules\dbConnection.js">
-        <metrics statements="8" coveredstatements="7" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="18" count="180" type="stmt"/>
-        <line num="19" count="180" type="cond" truecount="1" falsecount="1"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="25" count="180" type="stmt"/>
-        <line num="28" count="3" type="stmt"/>
+        <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="18" count="200" type="stmt"/>
+        <line num="19" count="200" type="cond" truecount="2" falsecount="0"/>
+        <line num="20" count="3" type="stmt"/>
+        <line num="25" count="200" type="stmt"/>
+        <line num="28" count="4" type="stmt"/>
       </file>
     </package>
     <package name="DB-Modules.Models">
-      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="appointment.js" path="C:\Users\PhilippeWS\Documents\Calpoly School Work\Winter Quarter 2022\CPE-308\Scheduling\be-scheduling\DB-Modules\Models\appointment.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
       </file>
       <file name="client.js" path="C:\Users\PhilippeWS\Documents\Calpoly School Work\Winter Quarter 2022\CPE-308\Scheduling\be-scheduling\DB-Modules\Models\client.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
-        <line num="24" count="3" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
       </file>
       <file name="dog.js" path="C:\Users\PhilippeWS\Documents\Calpoly School Work\Winter Quarter 2022\CPE-308\Scheduling\be-scheduling\DB-Modules\Models\dog.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="20" count="2" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+      </file>
+      <file name="user.js" path="C:\Users\PhilippeWS\Documents\Calpoly School Work\Winter Quarter 2022\CPE-308\Scheduling\be-scheduling\DB-Modules\Models\user.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
       </file>
     </package>
     <package name="DB-Modules.Services">
-      <metrics statements="195" coveredstatements="195" conditionals="18" coveredconditionals="15" methods="28" coveredmethods="28"/>
+      <metrics statements="255" coveredstatements="248" conditionals="39" coveredconditionals="30" methods="36" coveredmethods="36"/>
       <file name="appointment-services.js" path="C:\Users\PhilippeWS\Documents\Calpoly School Work\Winter Quarter 2022\CPE-308\Scheduling\be-scheduling\DB-Modules\Services\appointment-services.js">
-        <metrics statements="78" coveredstatements="78" conditionals="10" coveredconditionals="9" methods="10" coveredmethods="10"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="16" count="3" type="stmt"/>
-        <line num="17" count="3" type="stmt"/>
-        <line num="18" count="3" type="stmt"/>
-        <line num="19" count="3" type="stmt"/>
-        <line num="20" count="2" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="28" count="4" type="stmt"/>
-        <line num="29" count="4" type="stmt"/>
-        <line num="30" count="4" type="stmt"/>
-        <line num="32" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="33" count="3" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
-        <line num="37" count="3" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
-        <line num="40" count="1" type="stmt"/>
-        <line num="45" count="1" type="stmt"/>
-        <line num="46" count="1" type="stmt"/>
-        <line num="47" count="1" type="stmt"/>
-        <line num="48" count="1" type="stmt"/>
-        <line num="49" count="1" type="stmt"/>
-        <line num="53" count="6" type="stmt"/>
-        <line num="54" count="6" type="stmt"/>
-        <line num="55" count="6" type="stmt"/>
-        <line num="56" count="6" type="stmt"/>
-        <line num="57" count="6" type="stmt"/>
-        <line num="59" count="1" type="stmt"/>
-        <line num="60" count="1" type="stmt"/>
-        <line num="62" count="1" type="stmt"/>
-        <line num="64" count="5" type="stmt"/>
-        <line num="65" count="5" type="stmt"/>
-        <line num="70" count="3" type="stmt"/>
-        <line num="71" count="3" type="stmt"/>
-        <line num="72" count="3" type="stmt"/>
-        <line num="73" count="3" type="stmt"/>
-        <line num="84" count="2" type="stmt"/>
-        <line num="85" count="2" type="stmt"/>
-        <line num="87" count="1" type="stmt"/>
-        <line num="88" count="1" type="stmt"/>
-        <line num="93" count="3" type="stmt"/>
-        <line num="94" count="3" type="stmt"/>
-        <line num="95" count="3" type="stmt"/>
-        <line num="96" count="3" type="stmt"/>
-        <line num="98" count="1" type="stmt"/>
-        <line num="99" count="1" type="stmt"/>
-        <line num="104" count="4" type="stmt"/>
-        <line num="105" count="4" type="cond" truecount="1" falsecount="1"/>
-        <line num="106" count="4" type="stmt"/>
-        <line num="107" count="13" type="stmt"/>
-        <line num="110" count="3" type="stmt"/>
-        <line num="114" count="18" type="cond" truecount="2" falsecount="0"/>
-        <line num="115" count="16" type="stmt"/>
-        <line num="116" count="16" type="stmt"/>
-        <line num="118" count="16" type="stmt"/>
-        <line num="119" count="16" type="stmt"/>
-        <line num="121" count="16" type="stmt"/>
-        <line num="122" count="15" type="stmt"/>
-        <line num="124" count="15" type="stmt"/>
-        <line num="126" count="15" type="cond" truecount="2" falsecount="0"/>
-        <line num="127" count="3" type="stmt"/>
-        <line num="129" count="12" type="stmt"/>
-        <line num="131" count="15" type="stmt"/>
-        <line num="135" count="1" type="stmt"/>
-        <line num="136" count="1" type="stmt"/>
-        <line num="137" count="1" type="stmt"/>
-        <line num="138" count="1" type="stmt"/>
-        <line num="139" count="1" type="stmt"/>
-        <line num="140" count="1" type="stmt"/>
-        <line num="141" count="1" type="stmt"/>
-      </file>
-      <file name="client-services.js" path="C:\Users\PhilippeWS\Documents\Calpoly School Work\Winter Quarter 2022\CPE-308\Scheduling\be-scheduling\DB-Modules\Services\client-services.js">
-        <metrics statements="56" coveredstatements="56" conditionals="4" coveredconditionals="3" methods="9" coveredmethods="9"/>
+        <metrics statements="80" coveredstatements="80" conditionals="13" coveredconditionals="12" methods="10" coveredmethods="10"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
         <line num="7" count="3" type="stmt"/>
-        <line num="11" count="22" type="stmt"/>
-        <line num="12" count="22" type="stmt"/>
-        <line num="13" count="22" type="stmt"/>
-        <line num="14" count="22" type="stmt"/>
-        <line num="18" count="83" type="stmt"/>
-        <line num="19" count="83" type="stmt"/>
-        <line num="20" count="83" type="stmt"/>
-        <line num="21" count="83" type="stmt"/>
-        <line num="22" count="82" type="stmt"/>
-        <line num="23" count="82" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="31" count="5" type="stmt"/>
-        <line num="32" count="5" type="stmt"/>
-        <line num="33" count="5" type="stmt"/>
-        <line num="34" count="5" type="stmt"/>
-        <line num="35" count="5" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="40" count="1" type="stmt"/>
-        <line num="42" count="4" type="stmt"/>
-        <line num="43" count="4" type="stmt"/>
-        <line num="48" count="3" type="stmt"/>
-        <line num="49" count="3" type="stmt"/>
-        <line num="50" count="3" type="stmt"/>
-        <line num="51" count="3" type="stmt"/>
-        <line num="59" count="2" type="stmt"/>
-        <line num="60" count="2" type="stmt"/>
-        <line num="62" count="1" type="stmt"/>
-        <line num="63" count="1" type="stmt"/>
-        <line num="69" count="3" type="stmt"/>
-        <line num="70" count="3" type="stmt"/>
-        <line num="71" count="3" type="stmt"/>
-        <line num="72" count="3" type="stmt"/>
-        <line num="74" count="1" type="stmt"/>
-        <line num="75" count="1" type="stmt"/>
-        <line num="80" count="22" type="stmt"/>
-        <line num="81" count="22" type="cond" truecount="1" falsecount="1"/>
-        <line num="82" count="22" type="stmt"/>
-        <line num="83" count="68" type="stmt"/>
-        <line num="86" count="22" type="stmt"/>
-        <line num="90" count="153" type="cond" truecount="2" falsecount="0"/>
-        <line num="91" count="149" type="stmt"/>
-        <line num="92" count="149" type="stmt"/>
-        <line num="93" count="149" type="stmt"/>
-        <line num="94" count="149" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="16" count="9" type="stmt"/>
+        <line num="17" count="9" type="stmt"/>
+        <line num="18" count="9" type="stmt"/>
+        <line num="19" count="9" type="stmt"/>
+        <line num="21" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="25" count="8" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="33" count="4" type="stmt"/>
+        <line num="34" count="4" type="stmt"/>
+        <line num="35" count="4" type="stmt"/>
+        <line num="36" count="4" type="stmt"/>
+        <line num="38" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="59" count="6" type="stmt"/>
+        <line num="60" count="6" type="stmt"/>
+        <line num="61" count="6" type="stmt"/>
+        <line num="62" count="6" type="stmt"/>
+        <line num="63" count="6" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="70" count="5" type="stmt"/>
+        <line num="71" count="5" type="stmt"/>
+        <line num="76" count="3" type="stmt"/>
+        <line num="77" count="3" type="stmt"/>
+        <line num="78" count="3" type="stmt"/>
+        <line num="79" count="3" type="stmt"/>
+        <line num="94" count="2" type="stmt"/>
+        <line num="95" count="2" type="stmt"/>
+        <line num="97" count="1" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
+        <line num="103" count="3" type="stmt"/>
+        <line num="104" count="3" type="stmt"/>
         <line num="105" count="3" type="stmt"/>
         <line num="106" count="3" type="stmt"/>
-        <line num="107" count="3" type="stmt"/>
-        <line num="108" count="3" type="stmt"/>
-        <line num="109" count="3" type="stmt"/>
-        <line num="110" count="3" type="stmt"/>
+        <line num="108" count="1" type="stmt"/>
+        <line num="109" count="1" type="stmt"/>
+        <line num="114" count="4" type="stmt"/>
+        <line num="115" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="116" count="4" type="stmt"/>
+        <line num="118" count="13" type="stmt"/>
+        <line num="122" count="3" type="stmt"/>
+        <line num="126" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="127" count="16" type="stmt"/>
+        <line num="128" count="16" type="stmt"/>
+        <line num="130" count="16" type="stmt"/>
+        <line num="131" count="16" type="stmt"/>
+        <line num="133" count="16" type="stmt"/>
+        <line num="134" count="15" type="stmt"/>
+        <line num="136" count="15" type="stmt"/>
+        <line num="138" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="139" count="3" type="stmt"/>
+        <line num="144" count="12" type="stmt"/>
+        <line num="152" count="15" type="stmt"/>
+        <line num="156" count="3" type="stmt"/>
+        <line num="157" count="3" type="stmt"/>
+        <line num="158" count="3" type="stmt"/>
+        <line num="159" count="3" type="stmt"/>
+        <line num="160" count="3" type="stmt"/>
+        <line num="161" count="3" type="stmt"/>
+        <line num="162" count="3" type="stmt"/>
       </file>
-      <file name="dog-services.js" path="C:\Users\PhilippeWS\Documents\Calpoly School Work\Winter Quarter 2022\CPE-308\Scheduling\be-scheduling\DB-Modules\Services\dog-services.js">
-        <metrics statements="61" coveredstatements="61" conditionals="4" coveredconditionals="3" methods="9" coveredmethods="9"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="2" count="2" type="stmt"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="9" count="2" type="stmt"/>
-        <line num="13" count="15" type="stmt"/>
-        <line num="14" count="15" type="stmt"/>
-        <line num="15" count="15" type="stmt"/>
-        <line num="16" count="15" type="stmt"/>
-        <line num="17" count="14" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="25" count="19" type="stmt"/>
-        <line num="26" count="19" type="stmt"/>
-        <line num="27" count="19" type="stmt"/>
-        <line num="28" count="19" type="stmt"/>
-        <line num="29" count="18" type="stmt"/>
-        <line num="30" count="18" type="stmt"/>
-        <line num="32" count="1" type="stmt"/>
+      <file name="client-services.js" path="C:\Users\PhilippeWS\Documents\Calpoly School Work\Winter Quarter 2022\CPE-308\Scheduling\be-scheduling\DB-Modules\Services\client-services.js">
+        <metrics statements="68" coveredstatements="66" conditionals="14" coveredconditionals="9" methods="11" coveredmethods="11"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="13" count="22" type="stmt"/>
+        <line num="14" count="22" type="stmt"/>
+        <line num="15" count="22" type="stmt"/>
+        <line num="16" count="22" type="cond" truecount="1" falsecount="1"/>
+        <line num="17" count="22" type="stmt"/>
+        <line num="20" count="22" type="stmt"/>
+        <line num="24" count="83" type="stmt"/>
+        <line num="25" count="83" type="stmt"/>
+        <line num="26" count="83" type="stmt"/>
+        <line num="27" count="83" type="stmt"/>
+        <line num="29" count="82" type="cond" truecount="1" falsecount="1"/>
+        <line num="31" count="82" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
-        <line num="38" count="4" type="stmt"/>
-        <line num="39" count="4" type="stmt"/>
-        <line num="40" count="4" type="stmt"/>
-        <line num="41" count="4" type="stmt"/>
-        <line num="42" count="4" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="39" count="5" type="stmt"/>
+        <line num="40" count="5" type="stmt"/>
+        <line num="41" count="5" type="stmt"/>
+        <line num="42" count="5" type="stmt"/>
+        <line num="43" count="5" type="stmt"/>
         <line num="45" count="1" type="stmt"/>
-        <line num="47" count="1" type="stmt"/>
-        <line num="49" count="3" type="stmt"/>
-        <line num="50" count="3" type="stmt"/>
-        <line num="55" count="3" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="50" count="4" type="stmt"/>
+        <line num="51" count="4" type="stmt"/>
         <line num="56" count="3" type="stmt"/>
         <line num="57" count="3" type="stmt"/>
         <line num="58" count="3" type="stmt"/>
-        <line num="65" count="2" type="stmt"/>
-        <line num="66" count="2" type="stmt"/>
-        <line num="68" count="1" type="stmt"/>
-        <line num="69" count="1" type="stmt"/>
-        <line num="74" count="3" type="stmt"/>
-        <line num="75" count="3" type="stmt"/>
+        <line num="59" count="3" type="stmt"/>
+        <line num="71" count="2" type="stmt"/>
+        <line num="72" count="2" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="80" count="3" type="stmt"/>
+        <line num="81" count="3" type="stmt"/>
+        <line num="82" count="3" type="stmt"/>
+        <line num="84" count="3" type="stmt"/>
+        <line num="87" count="3" type="stmt"/>
+        <line num="88" count="9" type="cond" truecount="1" falsecount="1"/>
+        <line num="89" count="0" type="stmt"/>
+        <line num="93" count="3" type="stmt"/>
+        <line num="94" count="3" type="stmt"/>
+        <line num="95" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="100" count="3" type="stmt"/>
+        <line num="102" count="1" type="stmt"/>
+        <line num="103" count="1" type="stmt"/>
+        <line num="108" count="22" type="stmt"/>
+        <line num="109" count="22" type="cond" truecount="1" falsecount="1"/>
+        <line num="110" count="22" type="stmt"/>
+        <line num="112" count="68" type="stmt"/>
+        <line num="116" count="22" type="stmt"/>
+        <line num="120" count="153" type="cond" truecount="2" falsecount="0"/>
+        <line num="121" count="149" type="stmt"/>
+        <line num="122" count="149" type="stmt"/>
+        <line num="123" count="149" type="stmt"/>
+        <line num="124" count="149" type="stmt"/>
+        <line num="128" count="3" type="stmt"/>
+        <line num="129" count="3" type="stmt"/>
+        <line num="130" count="3" type="stmt"/>
+        <line num="131" count="3" type="stmt"/>
+        <line num="132" count="3" type="stmt"/>
+        <line num="133" count="3" type="stmt"/>
+      </file>
+      <file name="dog-services.js" path="C:\Users\PhilippeWS\Documents\Calpoly School Work\Winter Quarter 2022\CPE-308\Scheduling\be-scheduling\DB-Modules\Services\dog-services.js">
+        <metrics statements="68" coveredstatements="67" conditionals="12" coveredconditionals="9" methods="10" coveredmethods="10"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="14" count="18" type="stmt"/>
+        <line num="15" count="18" type="stmt"/>
+        <line num="16" count="18" type="stmt"/>
+        <line num="17" count="18" type="stmt"/>
+        <line num="18" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="15" type="stmt"/>
+        <line num="21" count="17" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="29" count="19" type="stmt"/>
+        <line num="30" count="19" type="stmt"/>
+        <line num="31" count="19" type="stmt"/>
+        <line num="32" count="19" type="stmt"/>
+        <line num="34" count="18" type="cond" truecount="1" falsecount="1"/>
+        <line num="36" count="18" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="44" count="4" type="stmt"/>
+        <line num="45" count="4" type="stmt"/>
+        <line num="46" count="4" type="stmt"/>
+        <line num="47" count="4" type="stmt"/>
+        <line num="48" count="4" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+        <line num="56" count="3" type="stmt"/>
+        <line num="61" count="3" type="stmt"/>
+        <line num="62" count="3" type="stmt"/>
+        <line num="63" count="3" type="stmt"/>
+        <line num="64" count="3" type="stmt"/>
+        <line num="75" count="2" type="stmt"/>
+        <line num="76" count="2" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="79" count="1" type="stmt"/>
+        <line num="84" count="3" type="stmt"/>
+        <line num="85" count="3" type="stmt"/>
+        <line num="86" count="3" type="stmt"/>
+        <line num="88" count="3" type="stmt"/>
+        <line num="91" count="3" type="stmt"/>
+        <line num="92" count="9" type="cond" truecount="1" falsecount="1"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="96" count="3" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
+        <line num="99" count="1" type="stmt"/>
+        <line num="104" count="15" type="stmt"/>
+        <line num="105" count="15" type="cond" truecount="1" falsecount="1"/>
+        <line num="106" count="15" type="stmt"/>
+        <line num="108" count="46" type="stmt"/>
+        <line num="112" count="14" type="stmt"/>
+        <line num="116" count="67" type="cond" truecount="2" falsecount="0"/>
+        <line num="117" count="64" type="stmt"/>
+        <line num="118" count="64" type="stmt"/>
+        <line num="119" count="64" type="stmt"/>
+        <line num="120" count="63" type="stmt"/>
+        <line num="124" count="3" type="stmt"/>
+        <line num="125" count="3" type="stmt"/>
+        <line num="126" count="3" type="stmt"/>
+        <line num="127" count="3" type="stmt"/>
+        <line num="128" count="3" type="stmt"/>
+        <line num="129" count="3" type="stmt"/>
+      </file>
+      <file name="user-services.js" path="C:\Users\PhilippeWS\Documents\Calpoly School Work\Winter Quarter 2022\CPE-308\Scheduling\be-scheduling\DB-Modules\Services\user-services.js">
+        <metrics statements="39" coveredstatements="35" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="31" count="4" type="stmt"/>
+        <line num="32" count="4" type="stmt"/>
+        <line num="34" count="4" type="stmt"/>
+        <line num="35" count="4" type="stmt"/>
+        <line num="37" count="4" type="stmt"/>
+        <line num="38" count="3" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="42" count="3" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="46" count="3" type="stmt"/>
+        <line num="47" count="3" type="stmt"/>
         <line num="76" count="3" type="stmt"/>
         <line num="77" count="3" type="stmt"/>
-        <line num="79" count="1" type="stmt"/>
-        <line num="80" count="1" type="stmt"/>
-        <line num="86" count="15" type="stmt"/>
-        <line num="87" count="15" type="cond" truecount="1" falsecount="1"/>
-        <line num="88" count="15" type="stmt"/>
-        <line num="89" count="46" type="stmt"/>
-        <line num="92" count="14" type="stmt"/>
-        <line num="98" count="67" type="cond" truecount="2" falsecount="0"/>
-        <line num="99" count="64" type="stmt"/>
-        <line num="100" count="64" type="stmt"/>
-        <line num="101" count="64" type="stmt"/>
-        <line num="102" count="63" type="stmt"/>
-        <line num="113" count="2" type="stmt"/>
-        <line num="114" count="2" type="stmt"/>
-        <line num="115" count="2" type="stmt"/>
-        <line num="116" count="2" type="stmt"/>
-        <line num="117" count="2" type="stmt"/>
-        <line num="118" count="2" type="stmt"/>
+        <line num="78" count="3" type="stmt"/>
+        <line num="79" count="3" type="stmt"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
+        <line num="89" count="1" type="stmt"/>
+        <line num="91" count="1" type="stmt"/>
       </file>
     </package>
   </project>

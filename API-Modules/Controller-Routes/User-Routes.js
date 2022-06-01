@@ -11,7 +11,7 @@ router.post("/signUp", userController.signUp);
 
 router.post("/signIn", userController.signIn);
 
-router.patch("/", userController.update);
+//router.patch("/", userController.update);
 
 router.delete("/:email", userController.remove);
 
