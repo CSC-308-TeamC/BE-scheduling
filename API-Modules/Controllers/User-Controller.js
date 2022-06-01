@@ -70,12 +70,13 @@ async function signIn(req, res) {
   }
 }
 
-async function update(req, res) {
-  const userToUpdate = req.body;
-  const updatedUser = await UserServices.updateUser(userToUpdate);
-  if (updatedUser) res.status(200).send({ userData: updatedUser });
-  else res.status(404).end();
-}
+// Currently Not utilized----
+// async function update(req, res) {
+//   const userToUpdate = req.body;
+//   const updatedUser = await UserServices.updateUser(userToUpdate);
+//   if (updatedUser) res.status(200).send({ userData: updatedUser });
+//   else res.status(404).end();
+// }
 
 async function remove(req, res) {
   const email = req.params.email;
@@ -92,6 +93,6 @@ module.exports = {
   getByEmail,
   signUp,
   signIn,
-  update,
+  //update,
   remove,
 };

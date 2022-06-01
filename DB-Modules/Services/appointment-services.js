@@ -18,7 +18,7 @@ async function getAppointments(format = true) {
   try {
     let appointmentsResults = await appointmentModel.find().lean();
 
-    if (format) {
+    if (JSON.parse(format)) {
       appointmentResults = await formatAppointmentsArray(appointmentsResults);
     }
 
