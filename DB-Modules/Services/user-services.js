@@ -28,6 +28,7 @@ async function getUserByEmail(email) {
 }
 
 async function addUser(user) {
+  console.log("From add user" + user);
   dbC = dbConnection.getDbConnection(dbC);
   const userModel = dbC.model("User", UserSchema);
   // generate salt to hash password
