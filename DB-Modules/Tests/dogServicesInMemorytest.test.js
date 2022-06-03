@@ -173,7 +173,6 @@ describe("Get clients for ids", () => {
     expect(foundDog.breed).toBe(addedDog.breed);
     expect(foundDog.clientName).toBe(allClients[0].fullName);
   });
-
   //Create Record------------------------------------------------------|
   test("Adding dog -- Successful path", async () => {
     const dummyDog = {
