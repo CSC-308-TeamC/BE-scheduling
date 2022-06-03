@@ -24,7 +24,6 @@ function generateAccessToken(email) {
 
 async function signUp(req, res) {
   if (!req.body.email || !req.body.password) {
-    console.log("fail 1");
     //Missing password or Missing Email
     res.status(400).send("Bad request: Missing field.");
   } else {
