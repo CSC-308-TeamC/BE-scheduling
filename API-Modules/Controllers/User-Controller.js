@@ -24,11 +24,12 @@ function generateAccessToken(email) {
 
 async function signUp(req, res) {
   if (!req.body.email || !req.body.password) {
+    console.log("fail 1");
     //Missing password or Missing Email
     res.status(400).send("Bad request: Missing field.");
   } else {
     //Has password and email
-    if (userServices.getUserByEmail(req.body.email)) {
+    if (await userServices.getUserByEmail(req.body.email)) {
       //Email has already been used
       res.status(409).send("Email already taken.");
     } else {
