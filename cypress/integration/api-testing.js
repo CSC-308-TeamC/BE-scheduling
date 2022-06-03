@@ -47,38 +47,6 @@ describe("Backend (REST API) is listening", () => {
                 administrator: false,
                 __v: 0,
               },
-              {
-                _id: "627d5210cd5401e489551b2a",
-                email: "test@gmail.com",
-                password:
-                  "$2a$10$rncAYvw2lUiCBe58tlXjfuBBZ9yQXJVG7uYn6KSlCfgiyiQS.WVU2",
-                administrator: false,
-                __v: 0,
-              },
-              {
-                _id: "627d530c72a4c31a0d16ac42",
-                email: "tester@gmail.com",
-                password:
-                  "$2a$10$NqcnTTgT6SDcCPWgl/gnqeNLPHxwbn9Z0sNmCa42sTfr1YE4Hj4x.",
-                administrator: false,
-                __v: 0,
-              },
-              {
-                _id: "628536e5d9a4447f1b7235da",
-                email: "doggy@gmail.com",
-                password:
-                  "$2a$08$3X..JSir37u/TvVGGz7paOzaDjtAti2DefMs9eCgJPFB6zdV66HYi",
-                administrator: false,
-                __v: 0,
-              },
-              {
-                _id: "6285376bd9a4447f1b7235e0",
-                email: "doggys@gmail.com",
-                password:
-                  "$2a$08$UnmkCxMkxk7wboRKrbyr5OcRAPHTRkEcPcwZ/8uNLd3ZFWqbqXjN2",
-                administrator: false,
-                __v: 0,
-              },
             ],
           });
           //expect(response.body).to.be.instanceOf;
