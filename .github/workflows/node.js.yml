@@ -15,7 +15,7 @@ jobs:
         os: [ubuntu-latest] # macos-latest, windows-latest
         node-version: [16.x]
         #See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        #
+        
 
     steps:
       - uses: actions/checkout@v2
@@ -29,7 +29,6 @@ jobs:
       - run: npm test
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
-
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "dog-grooming-api"
           heroku_email: "arun.gan1234@gmail.com"
